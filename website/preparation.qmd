@@ -1,0 +1,160 @@
+---
+title: "Requirements"
+---
+
+## Prerequisites
+
+Before setting up the environment, ensure that your system meets the following requirements.  
+These prerequisites guarantee that all dependencies (including GUI and segmentation modules) work properly across different platforms.
+
+---
+
+### Option A. Standalone Executable (Recommended for general users)
+
+No installation required.  
+Download the latest release from [Releases](https://github.com/username/leaf-shape-tool/releases) and run the executable.  
+*(Windows: `LeafShapeTool.exe`, macOS: `LeafShapeTool.app`)*
+
+-> Proceed to the [Usage Guide]() for instructions on how to use the application.
+
+---
+
+### Option B. Source Code (For developers and reproducibility)
+
+If you prefer to run the application from source or reproduce the analysis workflow, follow the steps below to set up the Python environment.
+
+→ Continue to the next section.
+
+---
+
+### Install Python (or just use uv)
+
+You do not need to install Python manually — **[uv](https://docs.astral.sh/uv/)** will automatically download and manage the required Python version for you.  
+If preferred, you can still install Python from the [official website](https://www.python.org/downloads/),  
+but this is optional.
+
+:::{.callout-note}
+`uv` automatically handles both the Python runtime and virtual environments, so having uv installed is all you need to get started.
+:::
+
+Follow the official installation guide for your operating system:  
+
+- [Installing uv - uv](https://docs.astral.sh/uv/getting-started/installation/)
+
+## Environment Setup
+
+Follow the steps below to create an isolated environment and install all dependencies using uv.  
+This ensures a fully reproducible setup across systems.
+
+```bash
+# 1. Create a virtual environment
+uv venv
+
+# 2. Activate the environment
+.venv\Scripts\activate      # for Windows
+source .venv/bin/activate   # for macOS / Linux
+
+# 3. Install all dependencies defined in pyproject.toml / uv.lock
+uv sync
+
+# 4. Install the Leaf Shape Tool package in editable mode
+uv pip install -e .
+
+# 5. Launch the application
+uv run leaf-shape-tool
+```
+
+:::{.callout-note}
+- `uv venv` creates a `.venv` folder for an isolated environment.
+- `uv sync` installs all required packages with locked versions for reproducibility.
+- `uv pip install -e .` installs the package in editable mode for development.
+- `uv run` automatically uses the virtual environment without needing manual activation.
+:::
+
+## SAM2 Installation (Optional)
+
+[SAM2 (Segment Anything Model 2)](https://ai.meta.com/sam2/) is used for automatic segmentation of leaf regions.  
+It is optional — you can skip this section if you prefer manual or Otsu-based segmentation.
+
+**GPU acceleration with [CUDA](https://developer.nvidia.com/cuda-toolkit) is strongly recommended** for efficient inference.
+
+:::{.callout-note title="About SAM2"}
+**[SAM2 (Segment Anything 2)](https://ai.meta.com/sam2/)** is an open-source model developed by Meta AI for universal, prompt-based image segmentation.  
+It generalizes across diverse object types and performs well even on natural objects such as leaves.  
+In this software, SAM2 can be optionally used to automate ROI extraction prior to shape analysis with Elliptic Fourier Descriptors (EFDs).
+:::
+
+### 1. Install PyTorch and TorchVision
+
+SAM2 requires Python ≥ 3.10, torch ≥ 2.5.1, and torchvision ≥ 0.20.1.
+Follow the official PyTorch installation guide below to install them with CUDA support:
+
+- [PyTorch — Get Started](https://pytorch.org/get-started/locally/)
+
+Example (for CUDA 12.1 on Windows):
+
+```bash
+uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+```
+
+You can verify CUDA support in Python as follows:
+
+```python
+import torch
+print(torch.cuda.is_available())  # should return True
+```
+
+If it returns `False`, make sure you have a compatible **CUDA Toolkit** installed.
+
+- Download CUDA Toolkit:
+    - [CUDA Toolkit - NVIDIA Developer](https://developer.nvidia.com/cuda-toolkit)
+- Check GPU compatibility:
+    - [CUDA GPU Compute Capability - NVIDIA Developer](https://developer.nvidia.com/cuda-gpus)
+
+:::{.callout-note}
+If you only need CPU inference, you can install the CPU version of PyTorch instead.
+:::
+
+### 2. Clone and Install SAM2
+
+Clone the official SAM2 repository and install it in editable mode.
+
+```bash
+git clone https://github.com/facebookresearch/sam2.git
+cd sam2
+uv pip install -e .
+```
+
+:::{.callout-note}
+While [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/) is recommended on Windows ([URL](https://github.com/facebookresearch/sam2#:~:text=If%20you%20are%20installing%20on%20Windows%2C%20it%27s%20strongly%20recommended%20to%20use%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu.)), SAM2 can also run in a standard Windows environment with CUDA installed.
+:::
+
+### 3. Download Model Checkpoints
+
+SAM2 provides pre-trained model checkpoints.  
+You can download them using the provided shell script or manually via the links below.
+
+#### Option A. Using the provided script
+
+Use **Git Bash** (or rewrite the script for PowerShell):
+
+```bash
+cd checkpoints && \
+./download_ckpts.sh && \
+cd ..
+```
+
+#### Option B. Manual download
+
+| Model | File                                                                                                            | Size   |
+| ----- | --------------------------------------------------------------------------------------------------------------- | ------ |
+| Tiny  | [sam2.1_hiera_tiny.pt](https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_tiny.pt)           | 148 MB |
+| Small | [sam2.1_hiera_small.pt](https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_small.pt)         | 175 MB |
+| Base+ | [sam2.1_hiera_base_plus.pt](https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_base_plus.pt) | 308 MB |
+| Large | [sam2.1_hiera_large.pt](https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt)         | 856 MB |
+
+:::{.callout-warning}
+Since the installation process may change in the future, please refer to the official GitHub repository for the latest instructions:
+
+- [facebookresearch/sam2 - GitHub](https://github.com/facebookresearch/sam2)
+:::
