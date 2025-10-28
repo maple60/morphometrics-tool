@@ -14,3 +14,9 @@ readme = "README.md"
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
 keywords = ["morphometrics", "elliptic fourier analysis", "leaf shape", "napari"]
+
+[project.scripts]
+leaf-shape-tool = "leaf_shape_tool.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
