@@ -7,6 +7,9 @@ binarization, contour extraction, scale calibration, and Elliptic Fourier Descri
 
 The GUI layout and event-driven behavior are designed for interactive leaf
 image processing and morphometric analysis.
+
+Author: Maple
+License: BSD-3-Clause
 """
 
 import napari
