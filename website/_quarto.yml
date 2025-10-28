@@ -1,0 +1,39 @@
+project:
+  type: website
+  output-dir: ../docs # GitHub Pages
+
+website:
+  repo-url: https://github.com/maple60/morphometrics-tool
+  repo-actions: [edit, source, issue]
+  title: "Leaf Shape Analysis Tool"
+  navbar:
+    background: primary
+    search: true
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href: https://github.com/maple60/morphometrics-tool
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Installation"
+        href: installation.qmd
+      - text: "Usage"
+        href: usage.qmd
+      - text: "About"
+        href: about.qmd
+    page-footer:
+      left: "© 2024 Leaf Shape Analysis Tool"
+      right: "Built with Quarto"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    number-sections: true
