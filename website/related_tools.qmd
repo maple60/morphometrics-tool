@@ -1,0 +1,55 @@
+---
+title: "Related Tools and Frameworks"
+bibliography: references.bib
+---
+
+Numerous tools and frameworks have been developed for morphometrics. Here, we provide a brief overview of some notable examples that illustrate the diversity of approaches in this field.
+
+This section is subject to updates as new tools become available.
+Suggestions or corrections are always welcome.
+
+## Software and Tools
+
+### General or Framework-Level Tools
+
+| Tool | Language / Type | Note |
+|------------------------|------------------------|------------------------|
+| [**ImageJ**](https://imagej.net/ij/) [@schneider2012] / <br>[**Fiji**](https://fiji.sc/) [@schindelin2012] | JAVA / GUI |  |
+| [**LAMINA**](https://lamina.sourceforge.net/index.shtml) [@bylesjö2008] | Standalone GUI |  |
+| [**napari**](https://napari.org/stable/) [@sofroniew2025] | Python / GUI | Interactive viewer in Python |
+
+### Outline-Based Tools
+
+| Tool | Language / Type | Note |
+|--------------------------|-------------------|----------------------------|
+| [**SHAPE**](http://lbm.ab.a.u-tokyo.ac.jp/~iwata/shape/) [@iwata2002] | Windows GUI | Classic EFD analysis software. |
+| [**Momocs**](https://momx.github.io/Momocs/) [@bonhomme2014] | R package | Comprehensive outline & landmark morphometrics. |
+| [**Ellishape**](https://www.plantplus.cn/ElliShape/) [@wu2024reliablesuperiorellipticfourier] | Python CLI / GUI (standalone and web) | True normalization of EFDs. |
+| [**PyEFD**](https://pyefd.readthedocs.io/en/latest/) | Python library | Lightweight implementation of elliptic Fourier descriptors. |
+| [**LeafMachine**](https://www.leafmachine.org/) [@weaver2020] | Python / GUI | Automatic leaf segmentation and classification. |
+| [**LeafMachine2**](https://www.leafmachine.org/) [@weaver2023] | Python / GUI | Automated extraction of leaf and plant trait data from digital herbarium images using machine learning and computer vision. |
+| [**MorphoLeaf**](https://morpholeaf.versailles.inrae.fr/) [@biot2016] | R / C++ hybrid | Leaf contour extraction and shape quantification. |
+| [**LeafJ**](https://bitbucket.org/jnmaloof/leafj/src/master/) [@maloof2013] | ImageJ plugin | Batch leaf outline extraction. |
+| [**DiaOutline**](https://github.com/wishkerman/DiaOutline) [@wishkerman2018] | GUI / R |  |
+
+### Landmark-Based Tools
+
+| Tool | Language / Type | Note |
+|------------------------------------|------------------|-------------------|
+| Morphological Analysis of Size and Shape ([**MASS**](https://github.com/gillianlynnryan/MASS)) [@chuanromanee2019] | MATLAB | Morphological Analysis of Size and Shape. |
+| [**TPS Series**](https://www.sbmorphometrics.org/soft-tps.html) [@rohlf2015] | Windows GUI | Classic geometric morphometric suite. |
+| [**geomorph**](https://github.com/geomorphR/geomorph) [@adams2013] | R package | Landmark-based morphometric analysis. |
+| [**MorphoJ**](https://morphometrics.uk/MorphoJ_page.html) [@klingenberg2011] | Java GUI | Widely used for landmark-based morphometrics. |
+| [**shapes**](https://cran.r-project.org/web/packages/shape/index.html) [@dryden2025] | R package | Statistical analysis of landmark shapes in R |
+
+### Other Specialized Tools
+
+| Tool | Language / Type | Note |
+|------------------------|------------------------|------------------------|
+| [**LEAF GUI**](https://qbios.gatech.edu/software-quantifies-leaf-vein-networks-enables-plant-biology-advances) [@price2011] | MATLAB / GUI | Software quantifing leaf vein networks. As of 2025, the download link seems to be no longer available. |
+| [**LeafProcessor**](https://github.com/Angelovici-Lab/HTP_Image_Analysis/blob/master/LeafProcessor.m) [@backhaus2010] | C/C++ and MATLAB / Script file | Automatically identify plant species or genotypes. Although the paper mentions that a standalone program would be distributed, only a [MATLAB (`.m`) file](https://github.com/Angelovici-Lab/HTP_Image_Analysis/blob/master/LeafProcessor.m) appears to be available. |
+
+## References
+
+::: {#refs}
+:::
