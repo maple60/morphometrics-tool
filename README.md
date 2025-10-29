@@ -52,7 +52,6 @@ flowchart LR
 uv venv
 .venv\Scripts\activate # source .venv/bin/activate  # for macOS/Linux
 uv sync
-uv pip install -e .
 uv run python -m leaf_shape_tool.main
 ```
 
