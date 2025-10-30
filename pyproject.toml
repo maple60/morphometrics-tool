@@ -1,7 +1,7 @@
 [project]
 name = "leaf-shape-tool"
 version = "0.1.0"
-dependencies = ["napari[all]==0.6.6", "numpy==2.2.6", "opencv-python", "scikit-image", "scipy", "torch"]
+
 requires-python = ">=3.11, <3.13"
 authors = [
   { name = "Maple", email = "maplenavy@synology.me" }
@@ -15,8 +15,29 @@ license = "BSD-3-Clause"
 license-files = ["LICENSE"]
 keywords = ["morphometrics", "elliptic fourier analysis", "leaf shape", "napari"]
 
+dependencies = [
+    "napari==0.6.6",
+    "PyQt6>=6.6.0",
+    "numpy==2.2.6",
+    "opencv-python",
+    "scikit-image",
+    "scipy",
+    "torch",
+    "torchvision",
+    "nuitka>=2.8.4",
+    "pyinstaller==6.16.0"
+]
+
 [project.scripts]
 leaf-shape-tool = "leaf_shape_tool.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.uv]
+package = true
