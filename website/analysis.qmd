@@ -1,0 +1,13 @@
+---
+title: "Leaf Shape Analysis with Momocs"
+---
+
+## Overview
+
+## Importing EFDs into R
+
+## Contour Reconstruction from EFDs
+
+## PCA and Visualization
+
+## Interpretation

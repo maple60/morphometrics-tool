@@ -1,0 +1,26 @@
+---
+title: "Developer Guide"
+---
+
+## Build Application
+
+アプリのビルドにはPyInstallerを使用します。PyInstallerはPythonアプリケーションをスタンドアロンの実行可能ファイルに変換するツールです。
+To build the application, follow these steps:
+
+```bash
+pyinstaller __main__.spec
+```
+
+詳しいオプションは、公式ドキュメントを参照してください: [PyInstaller Manual](https://pyinstaller.org/en/stable/index.html).
+
+::: {.callout-note}
+最初は [Nuitka](https://nuitka.net/) を試しましたが、依存関係の解決に問題があり、最終的にPyInstallerを使用することにしました。
+PyQtとの相性がまだ完全ではないようです。
+
+現在開発が活発に行われているため、将来的にはNuitkaの使用を再検討する可能性があります。
+こちらのほうが高速かつ軽量な実行ファイルを生成できると考えています (現在は実行ファイルが200MB程度あります。)。
+:::
+
+PyInstaller を使用した際、torch ライブラリの一部を含めようとすると、ビルドに失敗しました。
+どうやら依存関係やファイルサイズの問題があるようです。
+このため、SAM2を使用する際は、torchやSAM2を手動でインストールする方針にしています。
