@@ -5,6 +5,15 @@ A napari widget for image binarization using Otsu thresholding or SAM2 segmentat
 This module is part of the Leaf Shape Analysis Tool.
 """
 
+# --- Fix PyTorch DLL loading in PyInstaller ---
+import os
+import sys
+
+if getattr(sys, "frozen", False):
+    torch_lib_path = os.path.join(os.path.dirname(sys.executable), "torch", "lib")
+    if os.path.isdir(torch_lib_path):
+        os.add_dll_directory(torch_lib_path)
+
 import napari
 from magicgui import magicgui
 from napari.utils.notifications import show_info
