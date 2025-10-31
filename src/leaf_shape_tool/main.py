@@ -12,7 +12,28 @@ Author: Maple
 License: BSD-3-Clause
 """
 
+# Check for SAM2 availability
+import sys, os
+base = os.path.dirname(os.path.abspath(sys.executable if getattr(sys, 'frozen', False) else __file__))
+sam2_dir = os.path.join(base, "sam2")
+if os.path.isdir(sam2_dir):
+    sys.path.insert(0, sam2_dir)
+
+try:
+    import sam2
+    SAM2_AVAILABLE = True
+except ImportError:
+    SAM2_AVAILABLE = False
+
+# Ensure the executable directory is in sys.path when frozen
+if getattr(sys, 'frozen', False):
+    exe_dir = os.path.dirname(sys.executable)
+    if exe_dir not in sys.path:
+        sys.path.append(exe_dir)
+
 import napari
+import imageio.v3 as iio
+from napari.plugins import plugin_manager
 from functools import partial
 from qtpy.QtCore import Qt, QTimer
 from qtpy.QtWidgets import QDockWidget
@@ -32,6 +53,33 @@ from leaf_shape_tool.widgets.calculate_efd import calculate_efd_and_save
 from leaf_shape_tool.widgets.clear_viewer import make_clear_viewer_widget
 from leaf_shape_tool.utils.add_ROIs_layer import add_ROIs
 
+
+def image_reader(path):
+    data = iio.imread(path)
+    return [(data, {"name": path})]
+
+
+plugin_manager.register(image_reader, name="manual_imageio_reader")
+
+import importlib
+from napari.plugins import plugin_manager
+
+# --- Register napari-imageio plugin manually ---
+try:
+    napari_imageio = importlib.import_module("napari.plugins._builtins.io")
+except ModuleNotFoundError:
+    try:
+        napari_imageio = importlib.import_module("napari_imageio")
+    except Exception as e:
+        napari_imageio = None
+        print(f"Warning: napari-imageio could not be imported: {e}")
+
+if napari_imageio is not None:
+    try:
+        plugin_manager.register(napari_imageio, name="napari-imageio")
+        print("✅ napari-imageio plugin manually registered.")
+    except Exception as e:
+        print(f"Failed to register napari-imageio: {e}")
 
 # ---------------------------------------------------------------------
 # Initialize Napari viewer
