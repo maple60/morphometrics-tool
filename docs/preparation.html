@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – Leaf Shape Analysis Tool</title>
+<title>Requirements – Leaf Shape Analysis Tool</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -92,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -116,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">About</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preparation.html">Basics</a></li><li class="breadcrumb-item"><a href="./preparation.html">Preparation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preparation.html" class="sidebar-item-text sidebar-link">
+  <a href="./preparation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Preparation</span></a>
   </div>
 </li>
@@ -187,15 +222,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a>
+  <ul class="collapse">
+  <li><a href="#option-a.-standalone-executable-recommended-for-general-users" id="toc-option-a.-standalone-executable-recommended-for-general-users" class="nav-link" data-scroll-target="#option-a.-standalone-executable-recommended-for-general-users">Option A. Standalone Executable (Recommended for general users)</a></li>
+  <li><a href="#option-b.-source-code-for-developers-and-reproducibility" id="toc-option-b.-source-code-for-developers-and-reproducibility" class="nav-link" data-scroll-target="#option-b.-source-code-for-developers-and-reproducibility">Option B. Source Code (For developers and reproducibility)</a></li>
+  <li><a href="#install-python-or-just-use-uv" id="toc-install-python-or-just-use-uv" class="nav-link" data-scroll-target="#install-python-or-just-use-uv">Install Python (or just use uv)</a></li>
+  </ul></li>
+  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link" data-scroll-target="#environment-setup">Environment Setup</a></li>
+  <li><a href="#sam2-installation-optional" id="toc-sam2-installation-optional" class="nav-link" data-scroll-target="#sam2-installation-optional">SAM2 Installation (Optional)</a>
+  <ul class="collapse">
+  <li><a href="#install-pytorch-and-torchvision" id="toc-install-pytorch-and-torchvision" class="nav-link" data-scroll-target="#install-pytorch-and-torchvision">1. Install PyTorch and TorchVision</a></li>
+  <li><a href="#clone-and-install-sam2" id="toc-clone-and-install-sam2" class="nav-link" data-scroll-target="#clone-and-install-sam2">2. Clone and Install SAM2</a></li>
+  <li><a href="#download-model-checkpoints" id="toc-download-model-checkpoints" class="nav-link" data-scroll-target="#download-model-checkpoints">3. Download Model Checkpoints</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/maple60/morphometrics-tool/edit/main/website/preparation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/maple60/morphometrics-tool/blob/main/website/preparation.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/maple60/morphometrics-tool/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preparation.html">Basics</a></li><li class="breadcrumb-item"><a href="./preparation.html">Preparation</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Requirements</h1>
 </div>
 
 
@@ -212,9 +265,228 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>About this site</p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>Before setting up the environment, ensure that your system meets the following requirements.<br>
+These prerequisites guarantee that all dependencies (including GUI and segmentation modules) work properly across different platforms.</p>
+<hr>
+<section id="option-a.-standalone-executable-recommended-for-general-users" class="level3">
+<h3 class="anchored" data-anchor-id="option-a.-standalone-executable-recommended-for-general-users">Option A. Standalone Executable (Recommended for general users)</h3>
+<p>No installation required.<br>
+Download the latest release from <a href="https://github.com/username/leaf-shape-tool/releases">Releases</a> and run the executable.<br>
+<em>(Windows: <code>LeafShapeTool.exe</code>, macOS: <code>LeafShapeTool.app</code>)</em></p>
+<p>-&gt; Proceed to the <a href="">Usage Guide</a> for instructions on how to use the application.</p>
+<hr>
+</section>
+<section id="option-b.-source-code-for-developers-and-reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="option-b.-source-code-for-developers-and-reproducibility">Option B. Source Code (For developers and reproducibility)</h3>
+<p>If you prefer to run the application from source or reproduce the analysis workflow, follow the steps below to set up the Python environment.</p>
+<p>→ Continue to the next section.</p>
+<hr>
+</section>
+<section id="install-python-or-just-use-uv" class="level3">
+<h3 class="anchored" data-anchor-id="install-python-or-just-use-uv">Install Python (or just use uv)</h3>
+<p>You do not need to install Python manually — <strong><a href="https://docs.astral.sh/uv/">uv</a></strong> will automatically download and manage the required Python version for you.<br>
+If preferred, you can still install Python from the <a href="https://www.python.org/downloads/">official website</a>,<br>
+but this is optional.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>uv</code> automatically handles both the Python runtime and virtual environments, so having uv installed is all you need to get started.</p>
+</div>
+</div>
+<p>Follow the official installation guide for your operating system:</p>
+<ul>
+<li><a href="https://docs.astral.sh/uv/getting-started/installation/">Installing uv - uv</a></li>
+</ul>
+</section>
+</section>
+<section id="environment-setup" class="level2">
+<h2 class="anchored" data-anchor-id="environment-setup">Environment Setup</h2>
+<p>Follow the steps below to create an isolated environment and install all dependencies using uv.<br>
+This ensures a fully reproducible setup across systems.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create a virtual environment</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Activate the environment</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">.venv\Scripts\activate</span>      <span class="co"># for Windows</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate   <span class="co"># for macOS / Linux</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Install all dependencies defined in pyproject.toml / uv.lock</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Install the Leaf Shape Tool package in editable mode</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">-e</span> .</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Launch the application</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run leaf-shape-tool</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><code>uv venv</code> creates a <code>.venv</code> folder for an isolated environment.</li>
+<li><code>uv sync</code> installs all required packages with locked versions for reproducibility.</li>
+<li><code>uv pip install -e .</code> installs the package in editable mode for development.</li>
+<li><code>uv run</code> automatically uses the virtual environment without needing manual activation.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="sam2-installation-optional" class="level2">
+<h2 class="anchored" data-anchor-id="sam2-installation-optional">SAM2 Installation (Optional)</h2>
+<p><a href="https://ai.meta.com/sam2/">SAM2 (Segment Anything Model 2)</a> is used for automatic segmentation of leaf regions.<br>
+It is optional — you can skip this section if you prefer manual or Otsu-based segmentation.</p>
+<p><strong>GPU acceleration with <a href="https://developer.nvidia.com/cuda-toolkit">CUDA</a> is strongly recommended</strong> for efficient inference.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="About SAM2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+About SAM2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><a href="https://ai.meta.com/sam2/">SAM2 (Segment Anything 2)</a></strong> is an open-source model developed by Meta AI for universal, prompt-based image segmentation.<br>
+It generalizes across diverse object types and performs well even on natural objects such as leaves.<br>
+In this software, SAM2 can be optionally used to automate ROI extraction prior to shape analysis with Elliptic Fourier Descriptors (EFDs).</p>
+</div>
+</div>
+<section id="install-pytorch-and-torchvision" class="level3">
+<h3 class="anchored" data-anchor-id="install-pytorch-and-torchvision">1. Install PyTorch and TorchVision</h3>
+<p>SAM2 requires Python ≥ 3.10, torch ≥ 2.5.1, and torchvision ≥ 0.20.1. Follow the official PyTorch installation guide below to install them with CUDA support:</p>
+<ul>
+<li><a href="https://pytorch.org/get-started/locally/">PyTorch — Get Started</a></li>
+</ul>
+<p>Example (for CUDA 12.1 on Windows):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install torch torchvision <span class="at">--index-url</span> https://download.pytorch.org/whl/cu121</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can verify CUDA support in Python as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(torch.cuda.is_available())  <span class="co"># should return True</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If it returns <code>False</code>, make sure you have a compatible <strong>CUDA Toolkit</strong> installed.</p>
+<ul>
+<li>Download CUDA Toolkit:
+<ul>
+<li><a href="https://developer.nvidia.com/cuda-toolkit">CUDA Toolkit - NVIDIA Developer</a></li>
+</ul></li>
+<li>Check GPU compatibility:
+<ul>
+<li><a href="https://developer.nvidia.com/cuda-gpus">CUDA GPU Compute Capability - NVIDIA Developer</a></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you only need CPU inference, you can install the CPU version of PyTorch instead.</p>
+</div>
+</div>
+</section>
+<section id="clone-and-install-sam2" class="level3">
+<h3 class="anchored" data-anchor-id="clone-and-install-sam2">2. Clone and Install SAM2</h3>
+<p>Clone the official SAM2 repository and install it in editable mode.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/facebookresearch/sam2.git</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> sam2</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">-e</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL (Windows Subsystem for Linux)</a> is recommended on Windows (<a href="https://github.com/facebookresearch/sam2#:~:text=If%20you%20are%20installing%20on%20Windows%2C%20it%27s%20strongly%20recommended%20to%20use%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu.">URL</a>), SAM2 can also run in a standard Windows environment with CUDA installed.</p>
+</div>
+</div>
+</section>
+<section id="download-model-checkpoints" class="level3">
+<h3 class="anchored" data-anchor-id="download-model-checkpoints">3. Download Model Checkpoints</h3>
+<p>SAM2 provides pre-trained model checkpoints.<br>
+You can download them using the provided shell script or manually via the links below.</p>
+<section id="option-a.-using-the-provided-script" class="level4">
+<h4 class="anchored" data-anchor-id="option-a.-using-the-provided-script">Option A. Using the provided script</h4>
+<p>Use <strong>Git Bash</strong> (or rewrite the script for PowerShell):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> checkpoints <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./download_ckpts.sh</span> <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="option-b.-manual-download" class="level4">
+<h4 class="anchored" data-anchor-id="option-b.-manual-download">Option B. Manual download</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>File</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tiny</td>
+<td><a href="https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_tiny.pt">sam2.1_hiera_tiny.pt</a></td>
+<td>148 MB</td>
+</tr>
+<tr class="even">
+<td>Small</td>
+<td><a href="https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_small.pt">sam2.1_hiera_small.pt</a></td>
+<td>175 MB</td>
+</tr>
+<tr class="odd">
+<td>Base+</td>
+<td><a href="https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_base_plus.pt">sam2.1_hiera_base_plus.pt</a></td>
+<td>308 MB</td>
+</tr>
+<tr class="even">
+<td>Large</td>
+<td><a href="https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_large.pt">sam2.1_hiera_large.pt</a></td>
+<td>856 MB</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Since the installation process may change in the future, please refer to the official GitHub repository for the latest instructions:</p>
+<ul>
+<li><a href="https://github.com/facebookresearch/sam2">facebookresearch/sam2 - GitHub</a></li>
+</ul>
+</div>
+</div>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -631,7 +903,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/maple60/morphometrics-tool/edit/main/website/about.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/maple60/morphometrics-tool/blob/main/website/about.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/maple60/morphometrics-tool/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/maple60/morphometrics-tool/edit/main/website/preparation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/maple60/morphometrics-tool/blob/main/website/preparation.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/maple60/morphometrics-tool/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with Quarto</p>
 </div>

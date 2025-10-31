@@ -1,10 +1,201 @@
 [
   {
+    "objectID": "usage.html",
+    "href": "usage.html",
+    "title": "Usage",
+    "section": "",
+    "text": "This section describes how to use the Leaf Shape Analysis Tool through the graphical user interface (GUI). All operations — from ROI cropping to EFD export — can be completed within a single interactive window.",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Usage"
+    ]
+  },
+  {
+    "objectID": "usage.html#workflow-overview",
+    "href": "usage.html#workflow-overview",
+    "title": "Usage",
+    "section": "1 Workflow Overview",
+    "text": "1 Workflow Overview\nThe overall workflow is summarized below.\nEach step can be performed through the dedicated GUI widgets.\n\n\n\n\n\n\n---\nconfig:\n  layout: dagre\n---\nflowchart TD\n    A[\"Load image\"] --&gt; B{\"Set scale?\"}\n    B -- Yes --&gt; B1[\"Set the scale\"]\n    B -- No --&gt; C[\"Add ROI layer\"]\n    B1 --&gt; C\n    C --&gt; D[\"Add landmarks\"]\n    D --&gt; E[\"Rotate image\"]\n    E --&gt; F[\"Binarize image\"]\n    F --&gt; G{\"Edit needed?\"}\n    G -- Yes --&gt; G1[\"Edit the binarized label layer\"]\n    G1 --&gt; H[\"Extract contour\"]\n    G -- No --&gt; H\n    H --&gt; J[\"Reset viewer\"]\n    J --&gt; L{\"Process next ROI?\"}\n    L -- Yes --&gt; C\n    L -- No --&gt; M[\"Reset all layers\"]\n    M --&gt; N{\"Process next image?\"}\n    N -- Yes --&gt; A\n    N -- No --&gt; O[\"Done\"]\n\n\n\n\n\n\n\nFrom next section, each step will be explained in detail.",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Usage"
+    ]
+  },
+  {
+    "objectID": "usage.html#step-by-step-guide",
+    "href": "usage.html#step-by-step-guide",
+    "title": "Usage",
+    "section": "2 Step-by-Step Guide",
+    "text": "2 Step-by-Step Guide\n\n2.1 Launch the Application\nAfter installation, start the application.\nOnce launched, the napari viewer window will appear.\n\n\n\n\n\n\n\nInitial window\n\n\n\n\n2.2 Load an Image\nOpen an image file from the menu bar ([File] &gt; [Open]) or drag & drop it directly into the viewer. ショートカットキーは Ctrl+O (Windows/Linux) または Cmd+O (Mac) です。\n\n\n\n\n\n\n\n[File] &gt; [Open]\n\n\n\n\n\n\n\n\nSupported Image Formats\n\n\n\nSupported formats include .jpg, .png, .tif, and .bmp.\n\n\n画像を読み込むと、画像のファイル名をレイヤ名とした画像レイヤが追加されます。 また、その上に自動的に ROIs レイヤも追加されます。\n\n\n\n\n\n\n\nImage loaded\n\n\n\n\n2.3 (Optional) Set the Scale\nIf your image contains a scale bar, you can define the pixel-to-cm ratio using the Scale Setter widget. 画像中にスケールバーが存在していたり、画像のdpi (dot per inch; 1ピクセル当たりのインチ数)情報が正確である場合は、左下のウィジェットからスケール設定を行うことができます。 これは任意です。 スケールを設定すると、輪郭取得後に、輪郭に囲まれた面積が cm\\(^2\\) データに保存されます。\n\n2.3.1 スケールバーで設定する場合\n画像中にスケールバーが存在する場合は、以下の手順でスケールを設定できます。\n\n[Add Layer] をクリックします。Scale Measurement という シェープレイヤーが追加されます\n[mode]を “px/cm” に設定します\nスケールバーを拡大し、[Add lines] ツールが選択されていることを確認します\n画像中のスケールバーの既知の長さに沿ってクリック＆ドラッグで線を引きます\n[Real length] と [Unit] に、スケールバーの実際の長さと単位を入力します。デフォルトでは 1 cm に設定されています。\n[Set Scalse] ボタンをクリックします。これでスケールが設定されます。\n\n\n\n\n\n\n\n\nSet scale (scale bar mode)\n\n\n\n\n2.3.2 dpi情報で設定する場合\n\n[mode]を “dpi” に設定します（デフォルトで設定されています）\n[DPI] に画像のdpi情報を入力します。デフォルトでは 300 dpi に設定されています\n\n\n\n\n\n\n\n\nSet scale (dpi mode)\n\n\n\n\n\n\n\n\nスキャン画像の解像度について\n\n\n\n葉のスキャン画像を取得する場合は、スキャン速度やファイルサイズのバランスも考えると、解像度は300－400 dpiで十分なことが多いです。\n(e.g. Shi et al. 2021; Viscosi et al. 2009)\nただし、細かい鋸歯がない場合は、50dpi 程度でも種の分類に十分な場合もあります (Neto et al. 2006)。\n\n\n\n\n\n2.4 Crop Region of Interest (ROI)\nUse the Crop Rectangle widget to define a region of interest (ROI). Click “Add ROI Layer” to draw a rectangular selection over the target leaf area.\n\nROIs レイヤーが選択されていることを確認します\n[Add rectangle] ツールが選択されていることを確認し、輪郭を取得したい対象物の周囲に矩形を描きます\n[Add ROI layer] をクリックします\n矩形の部分が切り抜かれた”ROI_01” という画像レイヤーと、その上に”ROI_01_landmarks”というポイントレイヤーが作成されます\n\n\n\n\n\n\n\nROIとは\n\n\n\nROI（Region of Interest）は、画像全体の中で「関心のある領域」や「解析対象となる部分」を指す用語です。\nたとえば葉の形状解析では、スキャン画像のうち葉の部分だけを切り出した領域をROIと呼びます。\nROIを指定することで、解析対象を限定し、不要な背景などの影響を除くことができます。\n\n\n\n\n\n\n\n\n\nDraw ROI rectangle\n\n\n\n\n\n\n\n\n操作について\n\n\n\n\nズームイン・ズームアウトはマウスホイールで行えます。 パンをしたい場合は、[Move camera] ツール を使用して、画像をドラッグして移動できます。\n[Add rectangle]  ツールが選択されている状態でも、スペースキーを押しながらドラッグしてパン操作が可能ですが、挙動がやや不安定です。\n画像の上にカーソルを置いた状態で、スペースキーを押したときに、カーソルが十字から通常のカーソルに変化する場合は、ドラッグによるパン操作が可能です。\n間違えた矩形を描画した場合は、[Delete selected shapes] ツールで矩形を消去し、再度矩形を追加してください。\n[Next ROI index] に次のROI番号が表示されており、ROIを作成すると自動で増加します。途中の番号から開始したい場合は手動で変更することが可能です。\n\n\n\n\n\n\n\n\n\n保存オプション\n\n\n\n\n[Save cropped image] でROI部分を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。\n[Output Folder] で保存先を設定できます。デフォルトでは、output/cropped_images に保存されます。保存先を変更したい場合は、[Choose directory] をクリックして変更することが可能です。\n\n\n\n\n\n2.5 Add Landmarks and Rotation\nAdd two landmarks (base and tip) using the Landmark Tool.\nThese are used to align the biological orientation of each leaf.\n\nROI_XX_landmarks レイヤが選択されていることを確認します (XXは01から始まるROI番号です)\n解析対象の基部(base)をクリックします\n解析対象の先端(tip)をクリックします\n[Rotate Image Based on Points] をクリックします\n基部が左(-x 方向)、先端が右(+x 方向)、基部と先端を結んだ直線がx軸とのなす角が0度になるように回転され、回転後の画像が “ROI_XX_rotated” (XX は 01から始まるROI番号)というレイヤー名で追加されます\n\n\n\n\nAdded landmarks\n\n\n\n\n\n\n\n\n操作について\n\n\n\n\n[Add points] ツール  が選択された状態で、左クリックをするとランドマークが追加されますが、ドラッグすると、画像を移動することができます\n\n\n\n基部(base)にランドマークを追加すると、自動的に次のランドマークのラベルが先端(tip)に進みます\n次のランドマークのラベルを変更したいときは、左の [label] を変更します\n[auto advance] は、ランドマークを追加した後、自動でラベルを進めるかの設定です。デフォルトではオンになっています\n[Undo last point] をクリックすると、最後に追加したランドマークが消去されます\n[Clear points] をクリックすると、現在のランドマークがすべて消去されます\n\n\n\n\n\n\n\n\n\n保存オプション\n\n\n\n\n[Save rotated image] で回転後の画像を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。\n[Output Folder] で保存先を設定できます。デフォルトでは、output/rotated_images に保存されます。保存先を変更したい場合は、[Choose directory] をクリックして変更することが可能です。\n\n\n\n\n\n2.6 Generate Binarized Mask\n輪郭を取得する領域を確定させるため、回転画像から二値化マスク画像を作成します。\n\n\n\n\n\n\n二値化処理\n\n\n\n二値化とは、画像をグレースケール（白黒の濃淡）に変換し、画素の明るさ（輝度値）を基準にして白と黒の2色に分類する処理です。\n一般的には、白が対象領域（葉などの解析対象）、黒が背景となるように分離します。\nこの処理によって、形の輪郭を明確に抽出できるようになります。\n二値化の方法には、手動で閾値を設定する方法のほか、画像のヒストグラムから自動で最適な閾値を求める「Otsu法」(Otsu 1979)などがあります。\n\n\n本ソフトウェアでは、以下の二つの方法を採用しています。\nGenerate a binary mask using one of the following methods:\n\nOtsu’s method (Otsu 1979): 画素値のヒストグラムに基づいて、自動的に最適な閾値を求める統計的二値化手法。\nSegment Anything Model 2 (SAM2) (Ravi et al. 2024): Meta社が開発した、深層学習モデルを用いた高精度な画像セグメンテーション手法。複雑な背景でも対象を自動で抽出できます。\n\nスキャン画像をなど、白い背景に対して葉が濃い色で写っている場合は、Otsu法で十分なことが多いです。\n一方、葉が薄く写っている場合や、背景が複雑な場合は、SAM2を使用すると良い結果が得られることがあります。\n経験的に、通常の葉のスキャン画像を用いる場合、Otsu法のほうが高速かつ細かい鋸歯を捉えやすい傾向があります。\n最初には Otsu法を試し、うまくいかない場合にSAM2を試すことをお勧めします。\n\n2.6.1 Otsuの方法で二値化する場合\n\n右側の [Binarization Widget]の[method]から、[Otsu]を選択します\n[Binarize image]をクリックします\n“ROI_XX_rotated_Otsu_labels” (XX は 01から始まるROI番号) というラベルレイヤーが追加され、二値化されたマスクが表示されます。対象の領域がオレンジ色で重ねて表示されます\n[method]の下に[threshold]のスライダーが表示され、閾値を手動で調整することが可能です。\nスライダーを動かすと、二値化の閾値が変化し、マスクがリアルタイムで更新されます。\n\n\n\n2.6.2 SAM2で二値化する場合\n\n右側の [Binarization Widget]の[method]から、[SAM2]を選択します\n[Binarize image]をクリックします\n“ROI_XX_rotated_SAM2_labels” (XX は 01から始まるROI番号) というラベルレイヤーが追加され、二値化されたマスクが表示されます。対象の領域が青色で重ねて表示されます\n\n\n\n\n\n\n\n注意点\n\n\n\n技術的な問題により、スタンドアローン版では現在SAM2は利用できません。\nSAM2を使用したい場合は、Python版を利用してください。申し訳ございません。将来的に対応させたいと思っております。\n\n\n\n\n\n\n\n\n保存オプション\n\n\n\n\n[Save binarized image] で二値化マスク画像を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。\n[Output Folder] で保存先を設定できます。デフォルトでは、output/binarized_images に保存されます。保存先を変更したい場合は、[Choose directory] をクリックして変更することが可能です。\n\n\n\n\n\n\n\n\n\n手法の比較について\n\n\n\n両方の結果を比較したい場合は、同じROIに対してそれぞれの手法で二値化を行い、結果を比較してください。\nこの際、“ROI_XX_rotated” (XX は 01から始まるROI番号) レイヤーを選択した状態で、二値化を実行してください。\n\nOtsu法はオレンジ、SAM2は青色でマスクが表示され、透過度を0.5に設定しているため、重ねて視覚的に比較することができます。\nまた、二値化マスク画像をそれぞれ保存することで、後で詳細に比較することも可能です。\n\n\n\n\n\n2.7 Edit Binarized Mask (if needed)\nもし自動で生成された二値マスクに修正が必要な場合は、以下の修正をおこないます:\n\n閾値の調整（大津の方法の場合のみ）: スライダーを動かして、二値化の閾値を調整します。\nラベルレイヤーの編集: napariのラベル編集ツールを使用して、マスクの追加や削除を行います。\n\n基本的には3種類のツールを使用して、二値化マスクを手動で修正できます:\n\npaint brush ツール: 欠けている部分の細かい修正に適しています\npolygon tool: 大きな領域を一度に追加したり、直線的に補完したりしたい場合に適しています。\nlabel eraser ツール: 不要な部分を削除するのに適しています。\n\n\n2.7.1 Paint brush ツールでの編集\n\n“ROI_XX_rotated_&lt;method&gt;_labels” レイヤー (XX は 01から始まるROI番号、&lt;method&gt; は Otsu または SAM2) を選択します\n左上の [layer controls] から [paint brush] ツール  を選択します。\n欠けている部分や、マスクが必要な部分をクリック＆ドラッグして塗りつぶします\n\n\n\n\n\n\n\nツールの設定について\n\n\n\n[layer controls] では、ブラシの設定を変更できます:\n\nopacity: ブラシの不透明度を変更します。デフォルトは 0.5 です\nbrush size: ブラシの太さを変更します。デフォルトは 10 ピクセルです\n\nほかの設定は基本的には変更する必要はありません。\n\n\n\n\n2.7.2 Polygon tool での編集\n\n“ROI_XX_rotated_&lt;method&gt;_labels” レイヤー (XX は 01から始まるROI番号、&lt;method&gt; は Otsu または SAM2) を選択します\n左上の [layer controls] から [polygon] ツール  を選択します。\nマスクを追加したい領域の周囲をクリックして多角形を描きます。ダブルクリックで多角形を閉じます。右クリックでひとつ前の頂点に戻ります\n多角形が閉じたら、自動的にその領域がマスクとして追加されます\n\n\n\n\n\n\n\nツールの設定について\n\n\n\n[layer controls] では、ブラシの設定を変更できます:\n\nopacity: ブラシの不透明度を変更します。デフォルトは 0.5 です\nbrush size: ブラシの太さを変更します。デフォルトは 10 ピクセルです\n\nほかの設定は基本的には変更する必要はありません。\n\n\n\n\n2.7.3 Label eraser ツールでの編集\n\n“ROI_XX_rotated_&lt;method&gt;_labels” レイヤー (XX は 01から始まるROI番号、&lt;method&gt; は Otsu または SAM2) を選択します\n左上の [layer controls] から [label eraser] ツール  を選択します。\n不要なマスク部分をクリック＆ドラッグして削除します\n\n\n\n\n\n\n\nツールの設定について\n\n\n\n[layer controls] では、ブラシの設定を変更できます: - opacity: ブラシの不透明度を変更します。デフォルトは 0.5 です - brush size: ブラシの太さを変更します。デフォルトは 10 ピクセルです ほかの設定は基本的には変更する必要はありません。\n\n\n\n\n\n\n\n\n修正についての補足説明\n\n\n\n葉柄を含めずに葉身のみの輪郭を取得したい場合にも、label eraser ツールは有効です。\n葉柄部分をクリック＆ドラッグして削除することで、葉身のみの輪郭を取得できます。\nこのとき、葉柄を完全に削除するのではなく、葉身とつながっている部分を切り離すように削除するだけで十分です。 なぜなら、この操作後に実施する輪郭抽出では、ROI内の最大の連結成分が抽出されるためです。\nそのため、paint brush ツールや polygon ツールによるマスクへの追加編集でも、完全に穴を埋めるように修正する必要はありません。 輪郭が閉じるようにつながっていれば、輪郭が正しく抽出されます。\n\n\n\n\n\n2.8 Extract Contour\nマスクが確定したら、輪郭を抽出します。\n\n“ROI_XX_rotated_&lt;method&gt;_labels” レイヤー (XX は 01から始まるROI番号、&lt;method&gt; は Otsu または SAM2) を選択します\n[Contour Extraction WIdget] の [Extract Contour] をクリックします\n輪郭がマスクの外周に沿って抽出されて水色で表示され、“ROI_XX_rotated_&lt;method&gt;labels_contour” (XX は 01から始まるROI番号、&lt;method&gt; は Otsu または SAM2) というラベルレイヤーが追加されます (Figure 1)\n\n\n\n\n\n\n\nFigure 1: Extracted contour\n\n\n\nこの時、EFDとoriented true normalized EFD も自動的に計算され、メタデータとともにエクスポートされます。\n\n\n\n\n\n\n輪郭に誤りがある場合\n\n\n\n輪郭が正しく抽出されなかった場合は、[Delete selected layers] ツールで “ROI_XX_rotated_&lt;method&gt;_labels_contour” レイヤーを削除し、ステップ 6 に戻って二値化マスクを再度修正してください。\n\n\n\n\n\n\n\n\n保存オプション\n\n\n\n\n[Save final (edited) mask] で手動修正した二値化マスク画像を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。\n[Save chosen blob mask] で保存先を設定できます。デフォルトでは、output/binarized_images に保存されます。保存先を変更したい場合は、[Choose directory] をクリックして変更することが可能です。\n\n\n\n\n\n2.9 Reset and Continue\n輪郭の取得を終えたら、ROIをリセットし、次のROIに進むか、次の画像に進みます。\n\n2.9.1 次のROIに進む場合\n[Keep base image & ‘ROIs’] にチェックを入れた状態で [Reset Viewer] をクリックします。 これにより、元画像と ROIs レイヤーはそのままに、他のすべてのレイヤーが削除されます。 ROIsレイヤーに前回のROIのプレビューが残っているため、次のROIを追加する際に便利です。\nその後、Section 2.4 に戻り、次のROIを追加して解析を続けることができます。\n\n\n2.9.2 次の画像に進む場合\n\n[Keep base image & ‘ROIs’] にチェックを入れた状態で [Reset Viewer] をクリックします\nROIs のプレビューを確認し、すべてのROIの解析が完了していることを確認します\n[Keep base image & ‘ROIs’] にチェックを外し、 [Reset All Layers] をクリックします\nこれにより、すべてのレイヤーが削除され、最初の状態に戻ります\nSection 2.2 に戻り、最初から解析を続けることができます\n\n\n\n\n\n\n\n保存オプション\n\n\n\n\n[Save ROIs (Image + ROIs + ROIS label)] で ROIs のプレビュー画像を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。\n保存をする場合は、[Save As] に保存されます。 デフォルトでは、output/rois/&lt;image&gt; (&lt;image&gt; は拡張子なしのファイル名。レイヤ名と同じ) に保存されます。保存先を変更したい場合は、[Select file] をクリックして変更することが可能です。",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Usage"
+    ]
+  },
+  {
+    "objectID": "usage.html#output-files",
+    "href": "usage.html#output-files",
+    "title": "Usage",
+    "section": "3 Output Files",
+    "text": "3 Output Files\nメタデータや解析結果は自動的にエクスポートされ、指定された出力ディレクトリに保存されます。 デフォルトでは、./output/ フォルダ内に保存されます。 デフォルトでは、以下のフォルダにそれぞれのファイルが保存されます：\n\nbinarized_image_final: binarized_images にある、自動での二値化後の画像を修正した二値画像\nbinarized_images: 自動での二値化後の二値画像\ncoefficients_efd: フーリエ記述子の生データ\ncoefficients_efd_normalized: 正規化されたフーリエ記述子 (oriented true EFD normalization)\ncontour: 輪郭座標データ\ncontour_image: 輪郭を白、背景を黒で保存した二値画像\ncropped_images: 元画像をROIで切り出した画像\nmetadata: メタデータファイル (.json および .csv)\nrois: 元画像にROIで切り出した領域を示す画像。画像の大きさは、元の画像の半分にリサイズされています。\nrotated_images: ランドマークに基づいて cropped_images を回転させた画像\n\n\n3.1 Metadata File\nFor each processed ROI, metadata are automatically saved in both .json and .csv formats. Each file follows the naming convention:\n\n&lt;image_id&gt;_&lt;ROI_id&gt;.json\n&lt;image_id&gt;_&lt;ROI_id&gt;.csv\n\nwhere &lt;image_id&gt; is the original image file name without the extension, and &lt;ROI_id&gt; is the ROI number starting from 01.\n\n\n\n\n\n\nTip\n\n\n\nIf you process the second ROI of leaf001.jpg, the exported files will be:\nleaf001_02.json and leaf001_02.csv. ROI IDs are zero-padded to two digits (e.g., 01, 02, …, 10). ROI は 01 から始まります。\n\n\nBy default, these files are stored under output/metadata/.\nYou can change the output directory. The metadata include information such as ROI coordinates, rotation angle, scale, and threshold parameters used during segmentation.\n\n3.1.1 メタデータの詳細な内容\njsonファイルには以下の情報が含まれています：\n\nmetadata_version\nsource\n\nabsolute_path\nrelative_path\nimage_id\nroi_index\n\nscale\n\npx_per_cm\nunit\nscale_factors\ndpi\n\nroi\n\npolygon_yx\nbbox_ymin_ymax_xmin_xmax\ncorners_yx\nslice_indices\n\nrotation\n\nangle_deg\noriginal_size\nrotated_size\n\nlandmarks\n\npoints_layer_name\npoints_n\npoints_labels\nbase_original\ntip_original\nbase_rotated\ntip_rotated\n\nbinarization\n\nmethod\nthreshold\nmanually_edited: boolean (true / false)\n\ncontour\n\npoints\narea\n\nmeta\n\ncreated_time\ncropped_from\nface_color_type\nborder_color_type\n\nprocessing_history\n\nstep: “binarization”\nmethod\nthreshold\nstep: “contour_extraction”\npoints\narea\n\n\nCSVファイルは、上記のJSONファイルから、一部の情報を抜粋して保存しています。 当初は、Procrustean pseudo-landmark methods (Hightower et al. 2025) の実装につなげることを目的として作成していました。\n具体的なCSVファイルの内容は以下になります。 なお、文字モードはUTF-8、区切り文字はカンマ (,) です。\n\n\n\n\n\n\nCaution\n\n\n\n文字コードはUTF-8であるため、日本語を含むファイルをExcelで開く場合は注意が必要です。 通常、ExcelはShift-JISをデフォルトの文字コードとして使用するため、文字化けが発生します。 その際は、Excelの「データ」タブから「テキストまたはCSVから」を選択し、インポートウィザードで文字コードをUTF-8に指定して開いてください。\n\n\n\nfile_absolute_path: 元画像ファイルの絶対パス\nfile_relative_path: 元画像ファイルの相対パス\nid: 元画像のファイル名（拡張子なし）\nleaf_id: ROIのID（01, 02, …）\npx_per_cm: ピクセルあたりのセンチメートル数。 scale設定がされていない場合は空欄になります。\nbase_x: 基部ランドマークのX座標（回転後 rotated_images の画像に対応しています。）\nbase_y: 基部ランドマークのY座標（回転後 rotated_images の画像に対応しています。）\ntip_x: 先端ランドマークのX座標（回転後 rotated_images の画像に対応しています。）\ntip_y: 先端ランドマークのY座標（回転後 rotated_images の画像に対応しています。）",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Usage"
+    ]
+  },
+  {
+    "objectID": "usage.html#recommended-order-for-users",
+    "href": "usage.html#recommended-order-for-users",
+    "title": "Usage",
+    "section": "4 Recommended Order for Users",
+    "text": "4 Recommended Order for Users\n\nRun the tool and load your image.\nFollow steps 1–9 above for each ROI.\nExported files can be used directly in R (e.g., with Momocs package (Bonhomme et al. 2014)) in R or Python (e.g. PyEFD) for downstream analysis.",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Usage"
+    ]
+  },
+  {
+    "objectID": "usage.html#references",
+    "href": "usage.html#references",
+    "title": "Usage",
+    "section": "5 References",
+    "text": "5 References\n\n\nBonhomme, Vincent, Sandrine Picq, Cédric Gaucherel, and Julien Claude. 2014. Momocs: Outline Analysis Using r. Journal of Statistical Software. Vol. 56. https://www.jstatsoft.org/v56/i13/.\n\n\nHightower, Asia, Svea Hall, Ricardo Urquidi Camacho, Alexandra Papamichail, Evan Adamski, Claudia Colligan, Aidan Deneen, et al. 2025. “Procrustean Pseudo-Landmark Methods in Python to Measure Massive Quantities of Leaf Shape Data.” bioRxiv. https://doi.org/10.1101/2025.08.08.669192.\n\n\nNeto, João Camargo, George E. Meyer, David D. Jones, and Ashok K. Samal. 2006. “Plant Species Identification Using Elliptic Fourier Leaf Shape Analysis.” Computers and Electronics in Agriculture 50 (2): 121–34. https://doi.org/10.1016/j.compag.2005.09.004.\n\n\nOtsu, Nobuyuki. 1979. “A Threshold Selection Method from Gray-Level Histograms.” IEEE Transactions on Systems, Man, and Cybernetics 9 (1): 62–66. https://doi.org/10.1109/TSMC.1979.4310076.\n\n\nRavi, Nikhila, Valentin Gabeur, Yuan-Ting Hu, Ronghang Hu, Chaitanya Ryali, Tengyu Ma, Haitham Khedr, et al. 2024. “SAM 2: Segment Anything in Images and Videos.” https://arxiv.org/abs/2408.00714.\n\n\nShi, Peijian, Kexin Yu, Karl J. Niklas, Julian Schrader, Yu Song, Renbin Zhu, Yang Li, Hailin Wei, and David A. Ratkowsky. 2021. “A General Model for Describing the Ovate Leaf Shape.” Symmetry 13 (8): 1524. https://doi.org/10.3390/sym13081524.\n\n\nViscosi, V., P. Fortini, D. E. Slice, A. Loy, and C. Blasi. 2009. “Geometric Morphometric Analyses of Leaf Variation in Four Oak Species of the Subgenus Quercus (Fagaceae).” Plant Biosystems - An International Journal Dealing with All Aspects of Plant Biology 143 (3): 575–87. https://doi.org/10.1080/11263500902775277.",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Usage"
+    ]
+  },
+  {
+    "objectID": "related_tools.html",
+    "href": "related_tools.html",
+    "title": "Related Tools and Frameworks",
+    "section": "",
+    "text": "Numerous tools and frameworks have been developed for morphometrics. Here, we provide a brief overview of some notable examples that illustrate the diversity of approaches in this field.\nThis section is subject to updates as new tools become available. Suggestions or corrections are always welcome.",
+    "crumbs": [
+      "Home",
+      "Appendix",
+      "Related Tools and Frameworks"
+    ]
+  },
+  {
+    "objectID": "related_tools.html#software-and-tools",
+    "href": "related_tools.html#software-and-tools",
+    "title": "Related Tools and Frameworks",
+    "section": "Software and Tools",
+    "text": "Software and Tools\n\nGeneral or Framework-Level Tools\n\n\n\nTool\nLanguage / Type\nNote\n\n\n\n\nImageJ (Schneider, Rasband, and Eliceiri 2012) / Fiji (Schindelin et al. 2012)\nJAVA / GUI\n\n\n\nLAMINA (Bylesjö et al. 2008)\nStandalone GUI\n\n\n\nnapari (Sofroniew et al. 2025)\nPython / GUI\nInteractive viewer in Python\n\n\n\n\n\nOutline-Based Tools\n\n\n\nTool\nLanguage / Type\nNote\n\n\n\n\nSHAPE (Iwata 2002)\nWindows GUI\nClassic EFD analysis software.\n\n\nMomocs (Bonhomme et al. 2014)\nR package\nComprehensive outline & landmark morphometrics.\n\n\nEllishape (Wu et al. 2024)\nPython CLI / GUI (standalone and web)\nTrue normalization of EFDs.\n\n\nPyEFD\nPython library\nLightweight implementation of elliptic Fourier descriptors.\n\n\nLeafMachine (Weaver, Ng, and Laport 2020)\nPython / GUI\nAutomatic leaf segmentation and classification.\n\n\nLeafMachine2 (Weaver and Smith 2023)\nPython / GUI\nAutomated extraction of leaf and plant trait data from digital herbarium images using machine learning and computer vision.\n\n\nMorphoLeaf (Biot et al. 2016)\nR / C++ hybrid\nLeaf contour extraction and shape quantification.\n\n\nLeafJ (Maloof et al. 2013)\nImageJ plugin\nBatch leaf outline extraction.\n\n\nDiaOutline (Wishkerman and Hamilton 2018)\nGUI / R\n\n\n\n\n\n\nLandmark-Based Tools\n\n\n\nTool\nLanguage / Type\nNote\n\n\n\n\nMorphological Analysis of Size and Shape (MASS) (Chuanromanee, Cohen, and Ryan 2019)\nMATLAB\nMorphological Analysis of Size and Shape.\n\n\nTPS Series (Rohlf 2015)\nWindows GUI\nClassic geometric morphometric suite.\n\n\ngeomorph (Adams and Otárola-Castillo 2013)\nR package\nLandmark-based morphometric analysis.\n\n\nMorphoJ (Klingenberg 2011)\nJava GUI\nWidely used for landmark-based morphometrics.\n\n\nshapes (Dryden 2025)\nR package\nStatistical analysis of landmark shapes in R\n\n\n\n\n\nOther Specialized Tools\n\n\n\nTool\nLanguage / Type\nNote\n\n\n\n\nLEAF GUI (Price et al. 2011)\nMATLAB / GUI\nSoftware quantifing leaf vein networks. As of 2025, the download link seems to be no longer available.\n\n\nLeafProcessor (Backhaus et al. 2010)\nC/C++ and MATLAB / Script file\nAutomatically identify plant species or genotypes. Although the paper mentions that a standalone program would be distributed, only a MATLAB (.m) file appears to be available.",
+    "crumbs": [
+      "Home",
+      "Appendix",
+      "Related Tools and Frameworks"
+    ]
+  },
+  {
+    "objectID": "related_tools.html#references",
+    "href": "related_tools.html#references",
+    "title": "Related Tools and Frameworks",
+    "section": "References",
+    "text": "References\n\n\nAdams, Dean C., and Erik Otárola-Castillo. 2013. “Geomorph: An r Package for the Collection and Analysis of Geometric Morphometric Shape Data.” Methods in Ecology and Evolution 4 (4): 393–99. https://doi.org/10.1111/2041-210X.12035.\n\n\nBackhaus, Andreas, Asuka Kuwabara, Marion Bauch, Nick Monk, Guido Sanguinetti, and Andrew Fleming. 2010. “Leafprocessor: A New Leaf Phenotyping Tool Using Contour Bending Energy and Shape Cluster Analysis.” New Phytologist 187 (1): 251–61. https://doi.org/10.1111/j.1469-8137.2010.03266.x.\n\n\nBiot, Eric, Millán Cortizo, Jasmine Burguet, Annamaria Kiss, Mohamed Oughou, Aude Maugarny-Calès, Beatriz Gonçalves, et al. 2016. “Multiscale Quantification of Morphodynamics: MorphoLeaf Software for 2D Shape Analysis.” Development 143 (18): 3417–28. https://doi.org/10.1242/dev.134619.\n\n\nBonhomme, Vincent, Sandrine Picq, Cédric Gaucherel, and Julien Claude. 2014. “Momocs : Outline Analysis Using R.” Journal of Statistical Software 56 (13). https://doi.org/10.18637/jss.v056.i13.\n\n\nBylesjö, Max, Vincent Segura, Raju Y. Soolanayakanahally, Anne M. Rae, Johan Trygg, Petter Gustafsson, Stefan Jansson, and Nathaniel R. Street. 2008. “LAMINA: A Tool for Rapid Quantification of Leaf Size and Shape Parameters.” BMC Plant Biology 8 (1): 82. https://doi.org/10.1186/1471-2229-8-82.\n\n\nChuanromanee, Tya S., James I. Cohen, and Gillian L. Ryan. 2019. “Morphological Analysis of Size and Shape ( MASS ): An Integrative Software Program for Morphometric Analyses of Leaves.” Applications in Plant Sciences 7 (9): e11288. https://doi.org/10.1002/aps3.11288.\n\n\nDryden, Ian. 2025. Shapes: Statistical Shape Analysis. https://github.com/iandryden/shapes.\n\n\nIwata, H. 2002. “SHAPE: A Computer Program Package for Quantitative Evaluation of Biological Shapes Based on Elliptic Fourier Descriptors.” Journal of Heredity 93 (5): 384–85. https://doi.org/10.1093/jhered/93.5.384.\n\n\nKlingenberg, Christian Peter. 2011. “Morpho J: An Integrated Software Package for Geometric Morphometrics.” Molecular Ecology Resources 11 (2): 353–57. https://doi.org/10.1111/j.1755-0998.2010.02924.x.\n\n\nMaloof, Julin N., Kazunari Nozue, Maxwell R. Mumbach, and Christine M. Palmer. 2013. “LeafJ: An ImageJ Plugin for Semi-Automated Leaf Shape Measurement.” Journal of Visualized Experiments (JoVE), no. 71 (January): e50028. https://doi.org/10.3791/50028.\n\n\nPrice, Charles A., Olga Symonova, Yuriy Mileyko, Troy Hilley, and Joshua S. Weitz. 2011. “Leaf Extraction and Analysis Framework Graphical User Interface: Segmenting and Analyzing the Structure of Leaf Veins and Areoles.” Plant Physiology 155 (1): 236–45. https://doi.org/10.1104/pp.110.162834.\n\n\nRohlf, F. James. 2015. “The Tps Series of Software.” Hystrix, the Italian Journal of Mammalogy 26 (1): 9–12. https://doi.org/10.4404/hystrix-26.1-11264.\n\n\nSchindelin, Johannes, Ignacio Arganda-Carreras, Erwin Frise, Verena Kaynig, Mark Longair, Tobias Pietzsch, Stephan Preibisch, et al. 2012. “Fiji: An Open-Source Platform for Biological-Image Analysis.” Nature Methods 9 (7): 676–82. https://doi.org/10.1038/nmeth.2019.\n\n\nSchneider, Caroline A., Wayne S. Rasband, and Kevin W. Eliceiri. 2012. “NIH Image to ImageJ: 25 Years of Image Analysis.” Nature Methods 9 (7): 671–75. https://doi.org/10.1038/nmeth.2089.\n\n\nSofroniew, Nicholas, Talley Lambert, Grzegorz Bokota, Juan Nunez-Iglesias, Peter Sobolewski, Andrew Sweet, Lorenzo Gaifas, et al. 2025. Napari: A Multi-Dimensional Image Viewer for Python. Zenodo. https://zenodo.org/doi/10.5281/zenodo.17367124.\n\n\nWeaver, William N., Julienne Ng, and Robert G. Laport. 2020. “LeafMachine: Using Machine Learning to Automate Leaf Trait Extraction from Digitized Herbarium Specimens.” Applications in Plant Sciences 8 (6): e11367. https://doi.org/10.1002/aps3.11367.\n\n\nWeaver, William N., and Stephen A. Smith. 2023. “From Leaves to Labels: Building Modular Machine Learning Networks for Rapid Herbarium Specimen Analysis with LeafMachine2.” Applications in Plant Sciences 11 (5): e11548. https://doi.org/10.1002/aps3.11548.\n\n\nWishkerman, Asher, and Paul B. Hamilton. 2018. “Shape Outline Extraction Software (DiaOutline) for Elliptic Fourier Analysis Application in Morphometric Studies.” Applications in Plant Sciences 6 (12): e01204. https://doi.org/10.1002/aps3.1204.\n\n\nWu, Hui, Jia-Jie Yang, Chao-Qun Li, Jin-Hua Ran, Ren-Hua Peng, and Xiao-Quan Wang. 2024. “Reliable and Superior Elliptic Fourier Descriptor Normalization and Its Application Software ElliShape with Efficient Image Processing.” https://arxiv.org/abs/2412.10795.",
+    "crumbs": [
+      "Home",
+      "Appendix",
+      "Related Tools and Frameworks"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "website",
+    "title": "Leaf Shape Analysis Tool",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "A napari-based graphical user interface (GUI) for fully reproducible extraction, orientation, and morphometric analysis of leaf outlines.\nThis tool enables users to perform each processing step interactively—from setting image scale to computing normalized Elliptic Fourier Descriptors (EFDs)—within a single environment."
+  },
+  {
+    "objectID": "index.html#key-features",
+    "href": "index.html#key-features",
+    "title": "Leaf Shape Analysis Tool",
+    "section": "Key Features",
+    "text": "Key Features\n\n\n\nStep\nWidget\nDescription\n\n\n\n\n1️⃣\n(Optional) Set Scale (set_scale.py)\nDefine the physical scale of images using either DPI or a measured reference line (mm/cm/µm). Updates all visible layers and napari’s scale bar.\n\n\n2️⃣\nCrop ROI (crop_rectangle.py)\nDefine rectangular/polygonal regions of interest (ROIs) interactively and crop them. Generates numbered ROI layers and corresponding landmark layers.\n\n\n3️⃣\nPoint Tools (make_points_tool_widget.py)\nAdd and label landmark points (e.g., base and tip) for each ROI. Supports auto-advancing label assignment, undo, and count display.\n\n\n4️⃣\nRotate Image (rotate_image.py)\nRotate each ROI image based on base–tip landmarks so that the biological orientation (base → tip) is consistently rightward.\n\n\n5️⃣\nBinarize Image (binarize_image.py)\nGenerate binary masks using Otsu’s thresholding method or SAM2 segmentation. Metadata (thresholds, methods, manual edits) are preserved.\n\n\n6️⃣\nExtract Contour (extract_contour.py)\nExtract the largest external contour, visualize it, and export coordinates (CSV) and structured metadata (JSON/CSV).\n\n\n7️⃣\nCompute EFDs (calculate_efd.py)\nCalculate Elliptic Fourier Descriptors (EFDs), including true normalization (Wu et al. 2024), and export coefficients to CSV.\n\n\n8️⃣\nClear Viewer (clear_viewer.py)\nReset the viewer safely while preserving base images or ROIs, with optional automatic screenshot export."
+  },
+  {
+    "objectID": "index.html#workflow-overview",
+    "href": "index.html#workflow-overview",
+    "title": "Leaf Shape Analysis Tool",
+    "section": "Workflow Overview",
+    "text": "Workflow Overview\n\n\n\n\n\n---\nconfig:\n  layout: dagre\n---\nflowchart TB\n    A[\"Load image\"] --&gt; B{\"Set scale?\"}\n    B -- Yes --&gt; B1[\"Set the scale\"]\n    B -- No --&gt; C[\"Add ROI layer\"]\n    B1 --&gt; C\n    C --&gt; D[\"Add landmarks\"]\n    D --&gt; E[\"Rotate image\"]\n    E --&gt; F[\"Binarize image\"]\n    F --&gt; G{\"Edit needed?\"}\n    G -- Yes --&gt; G1[\"Edit the binarized label layer\"]\n    G1 --&gt; H[\"Extract contour\"]\n    G -- No --&gt; H\n    H --&gt; J[\"Reset viewer\"]\n    J --&gt; L{\"Process next ROI?\"}\n    L -- Yes --&gt; C\n    L -- No --&gt; M[\"Reset all layers\"]\n    M --&gt; N{\"Process next image?\"}\n    N -- Yes --&gt; A\n    N -- No --&gt; O[\"Done\"]"
+  },
+  {
+    "objectID": "index.html#license",
+    "href": "index.html#license",
+    "title": "Leaf Shape Analysis Tool",
+    "section": "License",
+    "text": "License\nThis project is licensed under the BSD-3-Clause license\nSee the LICENSE file for details."
+  },
+  {
+    "objectID": "index.html#acknowledgements",
+    "href": "index.html#acknowledgements",
+    "title": "Leaf Shape Analysis Tool",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nBuilt on the open-source frameworks napari, magicgui, OpenCV, NumPy, and pandas.\nWe thank the developers and the open science community for making this ecosystem possible."
+  },
+  {
+    "objectID": "index.html#citation",
+    "href": "index.html#citation",
+    "title": "Leaf Shape Analysis Tool",
+    "section": "Citation",
+    "text": "Citation\nIf you use this tool in your research, please cite:\nTo be written later."
+  },
+  {
+    "objectID": "analysis.html#importing-efds-into-r",
+    "href": "analysis.html#importing-efds-into-r",
+    "title": "Leaf Shape Analysis with Momocs",
+    "section": "Importing EFDs into R",
+    "text": "Importing EFDs into R",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Analysis"
+    ]
+  },
+  {
+    "objectID": "analysis.html#contour-reconstruction-from-efds",
+    "href": "analysis.html#contour-reconstruction-from-efds",
+    "title": "Leaf Shape Analysis with Momocs",
+    "section": "Contour Reconstruction from EFDs",
+    "text": "Contour Reconstruction from EFDs",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Analysis"
+    ]
+  },
+  {
+    "objectID": "analysis.html#pca-and-visualization",
+    "href": "analysis.html#pca-and-visualization",
+    "title": "Leaf Shape Analysis with Momocs",
+    "section": "PCA and Visualization",
+    "text": "PCA and Visualization",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Analysis"
+    ]
+  },
+  {
+    "objectID": "analysis.html#interpretation",
+    "href": "analysis.html#interpretation",
+    "title": "Leaf Shape Analysis with Momocs",
+    "section": "Interpretation",
+    "text": "Interpretation",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Analysis"
+    ]
   },
   {
     "objectID": "about.html",
@@ -12,5 +203,67 @@
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "developer_guide_ja.html",
+    "href": "developer_guide_ja.html",
+    "title": "Developer Guide",
+    "section": "",
+    "text": "アプリのビルドにはPyInstallerを使用します。PyInstallerはPythonアプリケーションをスタンドアロンの実行可能ファイルに変換するツールです。 To build the application, follow these steps:\npyinstaller __main__.spec\n詳しいオプションは、公式ドキュメントを参照してください: PyInstaller Manual.\n\n\n\n\n\n\nNote\n\n\n\n最初は Nuitka を試しましたが、依存関係の解決に問題があり、最終的にPyInstallerを使用することにしました。 PyQtとの相性がまだ完全ではないようです。\n現在開発が活発に行われているため、将来的にはNuitkaの使用を再検討する可能性があります。 こちらのほうが高速かつ軽量な実行ファイルを生成できると考えています (現在は実行ファイルが200MB程度あります。)。\n\n\nPyInstaller を使用した際、torch ライブラリの一部を含めようとすると、ビルドに失敗しました。 どうやら依存関係やファイルサイズの問題があるようです。 このため、SAM2を使用する際は、torchやSAM2を手動でインストールする方針にしています。"
+  },
+  {
+    "objectID": "developer_guide_ja.html#build-application",
+    "href": "developer_guide_ja.html#build-application",
+    "title": "Developer Guide",
+    "section": "",
+    "text": "アプリのビルドにはPyInstallerを使用します。PyInstallerはPythonアプリケーションをスタンドアロンの実行可能ファイルに変換するツールです。 To build the application, follow these steps:\npyinstaller __main__.spec\n詳しいオプションは、公式ドキュメントを参照してください: PyInstaller Manual.\n\n\n\n\n\n\nNote\n\n\n\n最初は Nuitka を試しましたが、依存関係の解決に問題があり、最終的にPyInstallerを使用することにしました。 PyQtとの相性がまだ完全ではないようです。\n現在開発が活発に行われているため、将来的にはNuitkaの使用を再検討する可能性があります。 こちらのほうが高速かつ軽量な実行ファイルを生成できると考えています (現在は実行ファイルが200MB程度あります。)。\n\n\nPyInstaller を使用した際、torch ライブラリの一部を含めようとすると、ビルドに失敗しました。 どうやら依存関係やファイルサイズの問題があるようです。 このため、SAM2を使用する際は、torchやSAM2を手動でインストールする方針にしています。"
+  },
+  {
+    "objectID": "preparation.html",
+    "href": "preparation.html",
+    "title": "Requirements",
+    "section": "",
+    "text": "Before setting up the environment, ensure that your system meets the following requirements.\nThese prerequisites guarantee that all dependencies (including GUI and segmentation modules) work properly across different platforms.\n\n\n\nNo installation required.\nDownload the latest release from Releases and run the executable.\n(Windows: LeafShapeTool.exe, macOS: LeafShapeTool.app)\n-&gt; Proceed to the Usage Guide for instructions on how to use the application.\n\n\n\n\nIf you prefer to run the application from source or reproduce the analysis workflow, follow the steps below to set up the Python environment.\n→ Continue to the next section.\n\n\n\n\nYou do not need to install Python manually — uv will automatically download and manage the required Python version for you.\nIf preferred, you can still install Python from the official website,\nbut this is optional.\n\n\n\n\n\n\nNote\n\n\n\nuv automatically handles both the Python runtime and virtual environments, so having uv installed is all you need to get started.\n\n\nFollow the official installation guide for your operating system:\n\nInstalling uv - uv",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Preparation"
+    ]
+  },
+  {
+    "objectID": "preparation.html#prerequisites",
+    "href": "preparation.html#prerequisites",
+    "title": "Requirements",
+    "section": "",
+    "text": "Before setting up the environment, ensure that your system meets the following requirements.\nThese prerequisites guarantee that all dependencies (including GUI and segmentation modules) work properly across different platforms.\n\n\n\nNo installation required.\nDownload the latest release from Releases and run the executable.\n(Windows: LeafShapeTool.exe, macOS: LeafShapeTool.app)\n-&gt; Proceed to the Usage Guide for instructions on how to use the application.\n\n\n\n\nIf you prefer to run the application from source or reproduce the analysis workflow, follow the steps below to set up the Python environment.\n→ Continue to the next section.\n\n\n\n\nYou do not need to install Python manually — uv will automatically download and manage the required Python version for you.\nIf preferred, you can still install Python from the official website,\nbut this is optional.\n\n\n\n\n\n\nNote\n\n\n\nuv automatically handles both the Python runtime and virtual environments, so having uv installed is all you need to get started.\n\n\nFollow the official installation guide for your operating system:\n\nInstalling uv - uv",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Preparation"
+    ]
+  },
+  {
+    "objectID": "preparation.html#environment-setup",
+    "href": "preparation.html#environment-setup",
+    "title": "Requirements",
+    "section": "Environment Setup",
+    "text": "Environment Setup\nFollow the steps below to create an isolated environment and install all dependencies using uv.\nThis ensures a fully reproducible setup across systems.\n# 1. Create a virtual environment\nuv venv\n\n# 2. Activate the environment\n.venv\\Scripts\\activate      # for Windows\nsource .venv/bin/activate   # for macOS / Linux\n\n# 3. Install all dependencies defined in pyproject.toml / uv.lock\nuv sync\n\n# 4. Install the Leaf Shape Tool package in editable mode\nuv pip install -e .\n\n# 5. Launch the application\nuv run leaf-shape-tool\n\n\n\n\n\n\nNote\n\n\n\n\nuv venv creates a .venv folder for an isolated environment.\nuv sync installs all required packages with locked versions for reproducibility.\nuv pip install -e . installs the package in editable mode for development.\nuv run automatically uses the virtual environment without needing manual activation.",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Preparation"
+    ]
+  },
+  {
+    "objectID": "preparation.html#sam2-installation-optional",
+    "href": "preparation.html#sam2-installation-optional",
+    "title": "Requirements",
+    "section": "SAM2 Installation (Optional)",
+    "text": "SAM2 Installation (Optional)\nSAM2 (Segment Anything Model 2) is used for automatic segmentation of leaf regions.\nIt is optional — you can skip this section if you prefer manual or Otsu-based segmentation.\nGPU acceleration with CUDA is strongly recommended for efficient inference.\n\n\n\n\n\n\nAbout SAM2\n\n\n\nSAM2 (Segment Anything 2) is an open-source model developed by Meta AI for universal, prompt-based image segmentation.\nIt generalizes across diverse object types and performs well even on natural objects such as leaves.\nIn this software, SAM2 can be optionally used to automate ROI extraction prior to shape analysis with Elliptic Fourier Descriptors (EFDs).\n\n\n\n1. Install PyTorch and TorchVision\nSAM2 requires Python ≥ 3.10, torch ≥ 2.5.1, and torchvision ≥ 0.20.1. Follow the official PyTorch installation guide below to install them with CUDA support:\n\nPyTorch — Get Started\n\nExample (for CUDA 12.1 on Windows):\nuv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121\nYou can verify CUDA support in Python as follows:\nimport torch\nprint(torch.cuda.is_available())  # should return True\nIf it returns False, make sure you have a compatible CUDA Toolkit installed.\n\nDownload CUDA Toolkit:\n\nCUDA Toolkit - NVIDIA Developer\n\nCheck GPU compatibility:\n\nCUDA GPU Compute Capability - NVIDIA Developer\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you only need CPU inference, you can install the CPU version of PyTorch instead.\n\n\n\n\n2. Clone and Install SAM2\nClone the official SAM2 repository and install it in editable mode.\ngit clone https://github.com/facebookresearch/sam2.git\ncd sam2\nuv pip install -e .\n\n\n\n\n\n\nNote\n\n\n\nWhile WSL (Windows Subsystem for Linux) is recommended on Windows (URL), SAM2 can also run in a standard Windows environment with CUDA installed.\n\n\n\n\n3. Download Model Checkpoints\nSAM2 provides pre-trained model checkpoints.\nYou can download them using the provided shell script or manually via the links below.\n\nOption A. Using the provided script\nUse Git Bash (or rewrite the script for PowerShell):\ncd checkpoints && \\\n./download_ckpts.sh && \\\ncd ..\n\n\nOption B. Manual download\n\n\n\nModel\nFile\nSize\n\n\n\n\nTiny\nsam2.1_hiera_tiny.pt\n148 MB\n\n\nSmall\nsam2.1_hiera_small.pt\n175 MB\n\n\nBase+\nsam2.1_hiera_base_plus.pt\n308 MB\n\n\nLarge\nsam2.1_hiera_large.pt\n856 MB\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nSince the installation process may change in the future, please refer to the official GitHub repository for the latest instructions:\n\nfacebookresearch/sam2 - GitHub",
+    "crumbs": [
+      "Home",
+      "Basics",
+      "Preparation"
+    ]
   }
 ]

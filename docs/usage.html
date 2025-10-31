@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Usage – Leaf Shape Analysis Tool</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-264a0fc3a96c72ca7334393e02078ef0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Leaf Shape Analysis Tool</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/maple60/morphometrics-tool">
+            Source Code
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preparation.html">Basics</a></li><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./usage.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Usage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./related_tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Related Tools and Frameworks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#workflow-overview" id="toc-workflow-overview" class="nav-link active" data-scroll-target="#workflow-overview"><span class="header-section-number">1</span> Workflow Overview</a></li>
+  <li><a href="#step-by-step-guide" id="toc-step-by-step-guide" class="nav-link" data-scroll-target="#step-by-step-guide"><span class="header-section-number">2</span> Step-by-Step Guide</a>
+  <ul class="collapse">
+  <li><a href="#launch-the-application" id="toc-launch-the-application" class="nav-link" data-scroll-target="#launch-the-application"><span class="header-section-number">2.1</span> Launch the Application</a></li>
+  <li><a href="#sec-load-image" id="toc-sec-load-image" class="nav-link" data-scroll-target="#sec-load-image"><span class="header-section-number">2.2</span> Load an Image</a></li>
+  <li><a href="#optional-set-the-scale" id="toc-optional-set-the-scale" class="nav-link" data-scroll-target="#optional-set-the-scale"><span class="header-section-number">2.3</span> (Optional) Set the Scale</a></li>
+  <li><a href="#sec-crop-ROI" id="toc-sec-crop-ROI" class="nav-link" data-scroll-target="#sec-crop-ROI"><span class="header-section-number">2.4</span> Crop Region of Interest (ROI)</a></li>
+  <li><a href="#add-landmarks-and-rotation" id="toc-add-landmarks-and-rotation" class="nav-link" data-scroll-target="#add-landmarks-and-rotation"><span class="header-section-number">2.5</span> Add Landmarks and Rotation</a></li>
+  <li><a href="#generate-binarized-mask" id="toc-generate-binarized-mask" class="nav-link" data-scroll-target="#generate-binarized-mask"><span class="header-section-number">2.6</span> Generate Binarized Mask</a></li>
+  <li><a href="#edit-binarized-mask-if-needed" id="toc-edit-binarized-mask-if-needed" class="nav-link" data-scroll-target="#edit-binarized-mask-if-needed"><span class="header-section-number">2.7</span> Edit Binarized Mask (if needed)</a></li>
+  <li><a href="#extract-contour" id="toc-extract-contour" class="nav-link" data-scroll-target="#extract-contour"><span class="header-section-number">2.8</span> Extract Contour</a></li>
+  <li><a href="#reset-and-continue" id="toc-reset-and-continue" class="nav-link" data-scroll-target="#reset-and-continue"><span class="header-section-number">2.9</span> Reset and Continue</a></li>
+  </ul></li>
+  <li><a href="#output-files" id="toc-output-files" class="nav-link" data-scroll-target="#output-files"><span class="header-section-number">3</span> Output Files</a>
+  <ul class="collapse">
+  <li><a href="#metadata-file" id="toc-metadata-file" class="nav-link" data-scroll-target="#metadata-file"><span class="header-section-number">3.1</span> Metadata File</a></li>
+  </ul></li>
+  <li><a href="#recommended-order-for-users" id="toc-recommended-order-for-users" class="nav-link" data-scroll-target="#recommended-order-for-users"><span class="header-section-number">4</span> Recommended Order for Users</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">5</span> References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/maple60/morphometrics-tool/edit/main/website/usage.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/maple60/morphometrics-tool/blob/main/website/usage.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/maple60/morphometrics-tool/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preparation.html">Basics</a></li><li class="breadcrumb-item"><a href="./usage.html">Usage</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Usage</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This section describes how to use the Leaf Shape Analysis Tool through the graphical user interface (GUI). All operations — from ROI cropping to EFD export — can be completed within a single interactive window.</p>
+<section id="workflow-overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="workflow-overview"><span class="header-section-number">1</span> Workflow Overview</h2>
+<p>The overall workflow is summarized below.<br>
+Each step can be performed through the dedicated GUI widgets.</p>
+<div style="text-align: center;">
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">---
+config:
+  layout: dagre
+---
+flowchart TD
+    A["Load image"] --&gt; B{"Set scale?"}
+    B -- Yes --&gt; B1["Set the scale"]
+    B -- No --&gt; C["Add ROI layer"]
+    B1 --&gt; C
+    C --&gt; D["Add landmarks"]
+    D --&gt; E["Rotate image"]
+    E --&gt; F["Binarize image"]
+    F --&gt; G{"Edit needed?"}
+    G -- Yes --&gt; G1["Edit the binarized label layer"]
+    G1 --&gt; H["Extract contour"]
+    G -- No --&gt; H
+    H --&gt; J["Reset viewer"]
+    J --&gt; L{"Process next ROI?"}
+    L -- Yes --&gt; C
+    L -- No --&gt; M["Reset all layers"]
+    M --&gt; N{"Process next image?"}
+    N -- Yes --&gt; A
+    N -- No --&gt; O["Done"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<p>From next section, each step will be explained in detail.</p>
+</section>
+<section id="step-by-step-guide" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="step-by-step-guide"><span class="header-section-number">2</span> Step-by-Step Guide</h2>
+<section id="launch-the-application" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="launch-the-application"><span class="header-section-number">2.1</span> Launch the Application</h3>
+<p>After installation, start the application.<br>
+Once launched, the napari viewer window will appear.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="assets/initial_window.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Initial window"><img src="assets/initial_window.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Initial window"></a></p>
+</figure>
+</div>
+<figcaption>Initial window</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-load-image" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="sec-load-image"><span class="header-section-number">2.2</span> Load an Image</h3>
+<p>Open an image file from the menu bar ([File] &gt; [Open]) or drag &amp; drop it directly into the viewer. ショートカットキーは Ctrl+O (Windows/Linux) または Cmd+O (Mac) です。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="assets/open_image.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="[File] > [Open]"><img src="assets/open_image.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="How to open a image"></a></p>
+</figure>
+</div>
+<figcaption>[File] &gt; [Open]</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Supported Image Formats">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Supported Image Formats
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Supported formats include <code>.jpg</code>, <code>.png</code>, <code>.tif</code>, and <code>.bmp</code>.</p>
+</div>
+</div>
+<p>画像を読み込むと、画像のファイル名をレイヤ名とした画像レイヤが追加されます。 また、その上に自動的に ROIs レイヤも追加されます。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="assets/image_loaded.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Image loaded"><img src="assets/image_loaded.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Image loaded"></a></p>
+</figure>
+</div>
+<figcaption>Image loaded</figcaption>
+</figure>
+</div>
+</section>
+<section id="optional-set-the-scale" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="optional-set-the-scale"><span class="header-section-number">2.3</span> (Optional) Set the Scale</h3>
+<p>If your image contains a scale bar, you can define the pixel-to-cm ratio using the Scale Setter widget. 画像中にスケールバーが存在していたり、画像のdpi (dot per inch; 1ピクセル当たりのインチ数)情報が正確である場合は、左下のウィジェットからスケール設定を行うことができます。 これは任意です。 スケールを設定すると、輪郭取得後に、輪郭に囲まれた面積が cm<span class="math inline">\(^2\)</span> データに保存されます。</p>
+<section id="スケールバーで設定する場合" class="level4" data-number="2.3.1">
+<h4 data-number="2.3.1" class="anchored" data-anchor-id="スケールバーで設定する場合"><span class="header-section-number">2.3.1</span> スケールバーで設定する場合</h4>
+<p>画像中にスケールバーが存在する場合は、以下の手順でスケールを設定できます。</p>
+<ol type="1">
+<li>[Add Layer] をクリックします。Scale Measurement という シェープレイヤーが追加されます</li>
+<li>[mode]を “px/cm” に設定します</li>
+<li>スケールバーを拡大し、[Add lines] ツールが選択されていることを確認します</li>
+<li>画像中のスケールバーの既知の長さに沿ってクリック＆ドラッグで線を引きます</li>
+<li>[Real length] と [Unit] に、スケールバーの実際の長さと単位を入力します。デフォルトでは 1 cm に設定されています。</li>
+<li>[Set Scalse] ボタンをクリックします。これでスケールが設定されます。</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="assets/set_scale_px_cm_mode.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Set scale (scale bar mode)"><img src="assets/set_scale_px_cm_mode.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Set scale (px/cm mode)"></a></p>
+</figure>
+</div>
+<figcaption>Set scale (scale bar mode)</figcaption>
+</figure>
+</div>
+</section>
+<section id="dpi情報で設定する場合" class="level4" data-number="2.3.2">
+<h4 data-number="2.3.2" class="anchored" data-anchor-id="dpi情報で設定する場合"><span class="header-section-number">2.3.2</span> dpi情報で設定する場合</h4>
+<ol type="1">
+<li>[mode]を “dpi” に設定します（デフォルトで設定されています）</li>
+<li>[DPI] に画像のdpi情報を入力します。デフォルトでは 300 dpi に設定されています</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="assets/set_scale_dpi_mode.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Set scale (dpi mode)"><img src="assets/set_scale_dpi_mode.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Set scale (dpi mode)"></a></p>
+</figure>
+</div>
+<figcaption>Set scale (dpi mode)</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+スキャン画像の解像度について
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>葉のスキャン画像を取得する場合は、スキャン速度やファイルサイズのバランスも考えると、解像度は300－400 dpiで十分なことが多いです。<br>
+<span class="citation" data-cites="shi2021 viscosi2009">(e.g. <a href="#ref-shi2021" role="doc-biblioref">Shi et al. 2021</a>; <a href="#ref-viscosi2009" role="doc-biblioref">Viscosi et al. 2009</a>)</span><br>
+ただし、細かい鋸歯がない場合は、50dpi 程度でも種の分類に十分な場合もあります <span class="citation" data-cites="neto2006a">(<a href="#ref-neto2006a" role="doc-biblioref">Neto et al. 2006</a>)</span>。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-crop-ROI" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="sec-crop-ROI"><span class="header-section-number">2.4</span> Crop Region of Interest (ROI)</h3>
+<p>Use the Crop Rectangle widget to define a region of interest (ROI). Click “Add ROI Layer” to draw a rectangular selection over the target leaf area.</p>
+<ol type="1">
+<li>ROIs レイヤーが選択されていることを確認します</li>
+<li>[Add rectangle] <img src="assets/icons\rectangle.svg" class="img-fluid" width="24">ツールが選択されていることを確認し、輪郭を取得したい対象物の周囲に矩形を描きます</li>
+<li>[Add ROI layer] をクリックします</li>
+<li>矩形の部分が切り抜かれた”ROI_01” という画像レイヤーと、その上に”ROI_01_landmarks”というポイントレイヤーが作成されます</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+ROIとは
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ROI（Region of Interest）は、画像全体の中で「関心のある領域」や「解析対象となる部分」を指す用語です。<br>
+たとえば葉の形状解析では、スキャン画像のうち葉の部分だけを切り出した領域をROIと呼びます。<br>
+ROIを指定することで、解析対象を限定し、不要な背景などの影響を除くことができます。</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="assets/roi_extraction.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Draw ROI rectangle"><img src="assets/roi_extraction.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Draw ROI rectangle"></a></p>
+</figure>
+</div>
+<figcaption>Draw ROI rectangle</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+操作について
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><strong>ズームイン・ズームアウト</strong>はマウスホイールで行えます。 <strong>パン</strong>をしたい場合は、[Move camera] ツール <img src="assets/icons\pan_arrows.svg" class="img-fluid" width="24">を使用して、画像をドラッグして移動できます。</p></li>
+<li><p>[Add rectangle] <img src="assets/icons\rectangle.svg" class="img-fluid" width="24"> ツールが選択されている状態でも、スペースキーを押しながらドラッグしてパン操作が可能ですが、挙動がやや不安定です。<br>
+画像の上にカーソルを置いた状態で、スペースキーを押したときに、カーソルが十字から通常のカーソルに変化する場合は、ドラッグによるパン操作が可能です。</p></li>
+<li><p>間違えた矩形を描画した場合は、[Delete selected shapes] ツールで矩形を消去し、再度矩形を追加してください。</p></li>
+<li><p>[Next ROI index] に次のROI番号が表示されており、ROIを作成すると自動で増加します。途中の番号から開始したい場合は手動で変更することが可能です。</p></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+保存オプション
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>[Save cropped image] でROI部分を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。</p></li>
+<li><p>[Output Folder] で保存先を設定できます。デフォルトでは、<code>output/cropped_images</code> に保存されます。保存先を変更したい場合は、[Choose directory] をクリックして変更することが可能です。</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="add-landmarks-and-rotation" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="add-landmarks-and-rotation"><span class="header-section-number">2.5</span> Add Landmarks and Rotation</h3>
+<p>Add two landmarks (base and tip) using the Landmark Tool.<br>
+These are used to align the biological orientation of each leaf.</p>
+<ol type="1">
+<li>ROI_XX_landmarks レイヤが選択されていることを確認します (XXは01から始まるROI番号です)</li>
+<li>解析対象の基部(base)をクリックします</li>
+<li>解析対象の先端(tip)をクリックします</li>
+<li>[Rotate Image Based on Points] をクリックします</li>
+<li>基部が左(-x 方向)、先端が右(+x 方向)、基部と先端を結んだ直線がx軸とのなす角が0度になるように回転され、回転後の画像が “ROI_XX_rotated” (XX は 01から始まるROI番号)というレイヤー名で追加されます</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="assets/add_landmarks.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Added landmarks"><img src="assets/add_landmarks.webp" class="img-fluid figure-img" alt="Added landmarks"></a></p>
+<figcaption>Added landmarks</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+操作について
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>[Add points] ツール <img src="assets/icons\add.svg" class="img-fluid" width="24"> が選択された状態で、左クリックをするとランドマークが追加されますが、ドラッグすると、画像を移動することができます</li>
+</ul>
+<!-- -->
+<ul>
+<li><p>基部(base)にランドマークを追加すると、自動的に次のランドマークのラベルが先端(tip)に進みます</p></li>
+<li><p>次のランドマークのラベルを変更したいときは、左の [label] を変更します</p></li>
+<li><p>[auto advance] は、ランドマークを追加した後、自動でラベルを進めるかの設定です。デフォルトではオンになっています</p></li>
+<li><p>[Undo last point] をクリックすると、最後に追加したランドマークが消去されます</p></li>
+<li><p>[Clear points] をクリックすると、現在のランドマークがすべて消去されます</p></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+保存オプション
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>[Save rotated image] で回転後の画像を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。</li>
+<li>[Output Folder] で保存先を設定できます。デフォルトでは、<code>output/rotated_images</code> に保存されます。保存先を変更したい場合は、[Choose directory] をクリックして変更することが可能です。</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="generate-binarized-mask" class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="generate-binarized-mask"><span class="header-section-number">2.6</span> Generate Binarized Mask</h3>
+<p>輪郭を取得する領域を確定させるため、回転画像から二値化マスク画像を作成します。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+二値化処理
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>二値化とは、画像をグレースケール（白黒の濃淡）に変換し、画素の明るさ（輝度値）を基準にして白と黒の2色に分類する処理です。<br>
+一般的には、白が対象領域（葉などの解析対象）、黒が背景となるように分離します。<br>
+この処理によって、形の輪郭を明確に抽出できるようになります。</p>
+<p>二値化の方法には、手動で閾値を設定する方法のほか、画像のヒストグラムから自動で最適な閾値を求める「Otsu法」<span class="citation" data-cites="otsu1979">(<a href="#ref-otsu1979" role="doc-biblioref">Otsu 1979</a>)</span>などがあります。</p>
+</div>
+</div>
+<p>本ソフトウェアでは、以下の二つの方法を採用しています。</p>
+<p>Generate a binary mask using one of the following methods:</p>
+<ul>
+<li><p>Otsu’s method <span class="citation" data-cites="otsu1979">(<a href="#ref-otsu1979" role="doc-biblioref">Otsu 1979</a>)</span>: 画素値のヒストグラムに基づいて、自動的に最適な閾値を求める統計的二値化手法。</p></li>
+<li><p>Segment Anything Model 2 (SAM2) <span class="citation" data-cites="ravi2024sam2segmentimages">(<a href="#ref-ravi2024sam2segmentimages" role="doc-biblioref">Ravi et al. 2024</a>)</span>: Meta社が開発した、深層学習モデルを用いた高精度な画像セグメンテーション手法。複雑な背景でも対象を自動で抽出できます。</p></li>
+</ul>
+<p>スキャン画像をなど、白い背景に対して葉が濃い色で写っている場合は、Otsu法で十分なことが多いです。<br>
+一方、葉が薄く写っている場合や、背景が複雑な場合は、SAM2を使用すると良い結果が得られることがあります。</p>
+<p>経験的に、通常の葉のスキャン画像を用いる場合、Otsu法のほうが高速かつ細かい鋸歯を捉えやすい傾向があります。<br>
+最初には Otsu法を試し、うまくいかない場合にSAM2を試すことをお勧めします。</p>
+<section id="otsuの方法で二値化する場合" class="level4" data-number="2.6.1">
+<h4 data-number="2.6.1" class="anchored" data-anchor-id="otsuの方法で二値化する場合"><span class="header-section-number">2.6.1</span> Otsuの方法で二値化する場合</h4>
+<ol type="1">
+<li>右側の [Binarization Widget]の[method]から、[Otsu]を選択します</li>
+<li>[Binarize image]をクリックします</li>
+<li>“ROI_XX_rotated_Otsu_labels” (XX は 01から始まるROI番号) というラベルレイヤーが追加され、二値化されたマスクが表示されます。対象の領域がオレンジ色で重ねて表示されます</li>
+<li>[method]の下に[threshold]のスライダーが表示され、閾値を手動で調整することが可能です。<br>
+スライダーを動かすと、二値化の閾値が変化し、マスクがリアルタイムで更新されます。</li>
+</ol>
+</section>
+<section id="sam2で二値化する場合" class="level4" data-number="2.6.2">
+<h4 data-number="2.6.2" class="anchored" data-anchor-id="sam2で二値化する場合"><span class="header-section-number">2.6.2</span> SAM2で二値化する場合</h4>
+<ol type="1">
+<li>右側の [Binarization Widget]の[method]から、[SAM2]を選択します</li>
+<li>[Binarize image]をクリックします</li>
+<li>“ROI_XX_rotated_SAM2_labels” (XX は 01から始まるROI番号) というラベルレイヤーが追加され、二値化されたマスクが表示されます。対象の領域が青色で重ねて表示されます</li>
+</ol>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+注意点
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>技術的な問題により、スタンドアローン版では現在SAM2は利用できません。<br>
+SAM2を使用したい場合は、Python版を利用してください。申し訳ございません。将来的に対応させたいと思っております。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+保存オプション
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>[Save binarized image] で二値化マスク画像を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。</li>
+<li>[Output Folder] で保存先を設定できます。デフォルトでは、<code>output/binarized_images</code> に保存されます。保存先を変更したい場合は、[Choose directory] をクリックして変更することが可能です。</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+手法の比較について
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>両方の結果を比較したい場合は、同じROIに対してそれぞれの手法で二値化を行い、結果を比較してください。<br>
+この際、“ROI_XX_rotated” (XX は 01から始まるROI番号) レイヤーを選択した状態で、二値化を実行してください。<br>
+</p>
+<p>Otsu法はオレンジ、SAM2は青色でマスクが表示され、透過度を0.5に設定しているため、重ねて視覚的に比較することができます。<br>
+また、二値化マスク画像をそれぞれ保存することで、後で詳細に比較することも可能です。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="edit-binarized-mask-if-needed" class="level3" data-number="2.7">
+<h3 data-number="2.7" class="anchored" data-anchor-id="edit-binarized-mask-if-needed"><span class="header-section-number">2.7</span> Edit Binarized Mask (if needed)</h3>
+<p>もし自動で生成された二値マスクに修正が必要な場合は、以下の修正をおこないます:</p>
+<ul>
+<li>閾値の調整（大津の方法の場合のみ）: スライダーを動かして、二値化の閾値を調整します。</li>
+<li>ラベルレイヤーの編集: napariのラベル編集ツールを使用して、マスクの追加や削除を行います。</li>
+</ul>
+<p>基本的には3種類のツールを使用して、二値化マスクを手動で修正できます:</p>
+<ul>
+<li>paint brush ツール: 欠けている部分の細かい修正に適しています</li>
+<li>polygon tool: 大きな領域を一度に追加したり、直線的に補完したりしたい場合に適しています。</li>
+<li>label eraser ツール: 不要な部分を削除するのに適しています。</li>
+</ul>
+<section id="paint-brush-ツールでの編集" class="level4" data-number="2.7.1">
+<h4 data-number="2.7.1" class="anchored" data-anchor-id="paint-brush-ツールでの編集"><span class="header-section-number">2.7.1</span> Paint brush ツールでの編集</h4>
+<ol type="1">
+<li>“ROI_XX_rotated_<code>&lt;method&gt;</code>_labels” レイヤー (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) を選択します</li>
+<li>左上の [layer controls] から [paint brush] ツール <img src="assets\icons\paint.svg" class="img-fluid" width="24"> を選択します。</li>
+<li>欠けている部分や、マスクが必要な部分をクリック＆ドラッグして塗りつぶします</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+ツールの設定について
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>[layer controls] では、ブラシの設定を変更できます:</p>
+<ul>
+<li>opacity: ブラシの不透明度を変更します。デフォルトは 0.5 です</li>
+<li>brush size: ブラシの太さを変更します。デフォルトは 10 ピクセルです</li>
+</ul>
+<p>ほかの設定は基本的には変更する必要はありません。</p>
+</div>
+</div>
+</section>
+<section id="polygon-tool-での編集" class="level4" data-number="2.7.2">
+<h4 data-number="2.7.2" class="anchored" data-anchor-id="polygon-tool-での編集"><span class="header-section-number">2.7.2</span> Polygon tool での編集</h4>
+<ol type="1">
+<li>“ROI_XX_rotated_<code>&lt;method&gt;</code>_labels” レイヤー (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) を選択します</li>
+<li>左上の [layer controls] から [polygon] ツール <img src="assets\icons\polygon.svg" class="img-fluid" width="24"> を選択します。</li>
+<li>マスクを追加したい領域の周囲をクリックして多角形を描きます。ダブルクリックで多角形を閉じます。右クリックでひとつ前の頂点に戻ります</li>
+<li>多角形が閉じたら、自動的にその領域がマスクとして追加されます</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+ツールの設定について
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>[layer controls] では、ブラシの設定を変更できます:</p>
+<ul>
+<li>opacity: ブラシの不透明度を変更します。デフォルトは 0.5 です</li>
+<li>brush size: ブラシの太さを変更します。デフォルトは 10 ピクセルです</li>
+</ul>
+<p>ほかの設定は基本的には変更する必要はありません。</p>
+</div>
+</div>
+</section>
+<section id="label-eraser-ツールでの編集" class="level4" data-number="2.7.3">
+<h4 data-number="2.7.3" class="anchored" data-anchor-id="label-eraser-ツールでの編集"><span class="header-section-number">2.7.3</span> Label eraser ツールでの編集</h4>
+<ol type="1">
+<li>“ROI_XX_rotated_<code>&lt;method&gt;</code>_labels” レイヤー (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) を選択します</li>
+<li>左上の [layer controls] から [label eraser] ツール <img src="assets\icons\erase.svg" class="img-fluid" width="24"> を選択します。</li>
+<li>不要なマスク部分をクリック＆ドラッグして削除します</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+ツールの設定について
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>[layer controls] では、ブラシの設定を変更できます: - opacity: ブラシの不透明度を変更します。デフォルトは 0.5 です - brush size: ブラシの太さを変更します。デフォルトは 10 ピクセルです ほかの設定は基本的には変更する必要はありません。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+修正についての補足説明
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>葉柄を含めずに葉身のみの輪郭を取得したい場合にも、label eraser ツールは有効です。<br>
+葉柄部分をクリック＆ドラッグして削除することで、葉身のみの輪郭を取得できます。</p>
+<p>このとき、葉柄を完全に削除するのではなく、葉身とつながっている部分を切り離すように削除するだけで十分です。 なぜなら、この操作後に実施する輪郭抽出では、<strong>ROI内の最大の連結成分が抽出される</strong>ためです。</p>
+<p>そのため、paint brush ツールや polygon ツールによるマスクへの追加編集でも、完全に穴を埋めるように修正する必要はありません。 輪郭が閉じるようにつながっていれば、輪郭が正しく抽出されます。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="extract-contour" class="level3" data-number="2.8">
+<h3 data-number="2.8" class="anchored" data-anchor-id="extract-contour"><span class="header-section-number">2.8</span> Extract Contour</h3>
+<p>マスクが確定したら、輪郭を抽出します。</p>
+<ol type="1">
+<li>“ROI_XX_rotated_<code>&lt;method&gt;</code>_labels” レイヤー (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) を選択します</li>
+<li>[Contour Extraction WIdget] の [Extract Contour] をクリックします</li>
+<li>輪郭がマスクの外周に沿って抽出されて水色で表示され、“ROI_XX_rotated_<code>&lt;method&gt;</code>labels_contour” (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) というラベルレイヤーが追加されます (<a href="#fig-contour" class="quarto-xref">Figure&nbsp;1</a>)</li>
+</ol>
+<div id="fig-contour" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Extracted contour">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-contour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/contoru_extraction.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;1: Extracted contour"><img src="assets/contoru_extraction.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Extracted contour"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Extracted contour
+</figcaption>
+</figure>
+</div>
+<p>この時、EFDとoriented true normalized EFD も自動的に計算され、メタデータとともにエクスポートされます。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+輪郭に誤りがある場合
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>輪郭が正しく抽出されなかった場合は、[Delete selected layers] ツールで “ROI_XX_rotated_<code>&lt;method&gt;</code>_labels_contour” レイヤーを削除し、ステップ 6 に戻って二値化マスクを再度修正してください。</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+保存オプション
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>[Save final (edited) mask] で手動修正した二値化マスク画像を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。</li>
+<li>[Save chosen blob mask] で保存先を設定できます。デフォルトでは、<code>output/binarized_images</code> に保存されます。保存先を変更したい場合は、[Choose directory] をクリックして変更することが可能です。</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="reset-and-continue" class="level3" data-number="2.9">
+<h3 data-number="2.9" class="anchored" data-anchor-id="reset-and-continue"><span class="header-section-number">2.9</span> Reset and Continue</h3>
+<p>輪郭の取得を終えたら、ROIをリセットし、次のROIに進むか、次の画像に進みます。</p>
+<section id="次のroiに進む場合" class="level4" data-number="2.9.1">
+<h4 data-number="2.9.1" class="anchored" data-anchor-id="次のroiに進む場合"><span class="header-section-number">2.9.1</span> 次のROIに進む場合</h4>
+<p>[Keep base image &amp; ‘ROIs’] にチェックを入れた状態で [Reset Viewer] をクリックします。 これにより、元画像と ROIs レイヤーはそのままに、他のすべてのレイヤーが削除されます。 ROIsレイヤーに前回のROIのプレビューが残っているため、次のROIを追加する際に便利です。</p>
+<p>その後、<a href="#sec-crop-ROI" class="quarto-xref">Section&nbsp;2.4</a> に戻り、次のROIを追加して解析を続けることができます。</p>
+</section>
+<section id="次の画像に進む場合" class="level4" data-number="2.9.2">
+<h4 data-number="2.9.2" class="anchored" data-anchor-id="次の画像に進む場合"><span class="header-section-number">2.9.2</span> 次の画像に進む場合</h4>
+<ol type="1">
+<li>[Keep base image &amp; ‘ROIs’] にチェックを入れた状態で [Reset Viewer] をクリックします</li>
+<li>ROIs のプレビューを確認し、すべてのROIの解析が完了していることを確認します</li>
+<li>[Keep base image &amp; ‘ROIs’] にチェックを外し、 [Reset All Layers] をクリックします<br>
+これにより、すべてのレイヤーが削除され、最初の状態に戻ります</li>
+<li><a href="#sec-load-image" class="quarto-xref">Section&nbsp;2.2</a> に戻り、最初から解析を続けることができます</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+保存オプション
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>[Save ROIs (Image + ROIs + ROIS label)] で ROIs のプレビュー画像を保存するかどうかを設定できます。デフォルトではオンになっています。保存をしない場合は、チェックを外してください。</li>
+<li>保存をする場合は、[Save As] に保存されます。 デフォルトでは、<code>output/rois/&lt;image&gt;</code> (<code>&lt;image&gt;</code> は拡張子なしのファイル名。レイヤ名と同じ) に保存されます。保存先を変更したい場合は、[Select file] をクリックして変更することが可能です。</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="output-files" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="output-files"><span class="header-section-number">3</span> Output Files</h2>
+<p>メタデータや解析結果は自動的にエクスポートされ、指定された出力ディレクトリに保存されます。 デフォルトでは、<code>./output/</code> フォルダ内に保存されます。 デフォルトでは、以下のフォルダにそれぞれのファイルが保存されます：</p>
+<ul>
+<li><code>binarized_image_final</code>: <code>binarized_images</code> にある、自動での二値化後の画像を修正した二値画像</li>
+<li><code>binarized_images</code>: 自動での二値化後の二値画像</li>
+<li><code>coefficients_efd</code>: フーリエ記述子の生データ</li>
+<li><code>coefficients_efd_normalized</code>: 正規化されたフーリエ記述子 (oriented true EFD normalization)</li>
+<li><code>contour</code>: 輪郭座標データ</li>
+<li><code>contour_image</code>: 輪郭を白、背景を黒で保存した二値画像</li>
+<li><code>cropped_images</code>: 元画像をROIで切り出した画像</li>
+<li><code>metadata</code>: メタデータファイル (.json および .csv)</li>
+<li><code>rois</code>: 元画像にROIで切り出した領域を示す画像。画像の大きさは、元の画像の半分にリサイズされています。</li>
+<li><code>rotated_images</code>: ランドマークに基づいて <code>cropped_images</code> を回転させた画像</li>
+</ul>
+<section id="metadata-file" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="metadata-file"><span class="header-section-number">3.1</span> Metadata File</h3>
+<p>For each processed ROI, metadata are automatically saved in both .json and .csv formats. Each file follows the naming convention:</p>
+<ul>
+<li><code>&lt;image_id&gt;_&lt;ROI_id&gt;.json</code></li>
+<li><code>&lt;image_id&gt;_&lt;ROI_id&gt;.csv</code></li>
+</ul>
+<p>where <code>&lt;image_id&gt;</code> is the original image file name without the extension, and <code>&lt;ROI_id&gt;</code> is the ROI number starting from 01.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you process the second ROI of <code>leaf001.jpg</code>, the exported files will be:<br>
+<code>leaf001_02.json</code> and <code>leaf001_02.csv</code>. ROI IDs are zero-padded to two digits (e.g., 01, 02, …, 10). ROI は 01 から始まります。</p>
+</div>
+</div>
+<p>By default, these files are stored under <code>output/metadata/</code>.</p>
+<p>You can change the output directory. The metadata include information such as ROI coordinates, rotation angle, scale, and threshold parameters used during segmentation.</p>
+<section id="メタデータの詳細な内容" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="メタデータの詳細な内容"><span class="header-section-number">3.1.1</span> メタデータの詳細な内容</h4>
+<p>jsonファイルには以下の情報が含まれています：</p>
+<ul>
+<li>metadata_version</li>
+<li>source
+<ul>
+<li>absolute_path</li>
+<li>relative_path</li>
+<li>image_id</li>
+<li>roi_index</li>
+</ul></li>
+<li>scale
+<ul>
+<li>px_per_cm</li>
+<li>unit</li>
+<li>scale_factors</li>
+<li>dpi</li>
+</ul></li>
+<li>roi
+<ul>
+<li>polygon_yx</li>
+<li>bbox_ymin_ymax_xmin_xmax</li>
+<li>corners_yx</li>
+<li>slice_indices</li>
+</ul></li>
+<li>rotation
+<ul>
+<li>angle_deg</li>
+<li>original_size</li>
+<li>rotated_size</li>
+</ul></li>
+<li>landmarks
+<ul>
+<li>points_layer_name</li>
+<li>points_n</li>
+<li>points_labels</li>
+<li>base_original</li>
+<li>tip_original</li>
+<li>base_rotated</li>
+<li>tip_rotated</li>
+</ul></li>
+<li>binarization
+<ul>
+<li>method</li>
+<li>threshold</li>
+<li>manually_edited: boolean (<code>true</code> / <code>false</code>)</li>
+</ul></li>
+<li>contour
+<ul>
+<li>points</li>
+<li>area</li>
+</ul></li>
+<li>meta
+<ul>
+<li>created_time</li>
+<li>cropped_from</li>
+<li>face_color_type</li>
+<li>border_color_type</li>
+</ul></li>
+<li>processing_history
+<ul>
+<li><p>step: “binarization”</p></li>
+<li><p>method</p></li>
+<li><p>threshold</p></li>
+<li><p>step: “contour_extraction”</p></li>
+<li><p>points</p></li>
+<li><p>area</p></li>
+</ul></li>
+</ul>
+<p>CSVファイルは、上記のJSONファイルから、一部の情報を抜粋して保存しています。 当初は、Procrustean pseudo-landmark methods <span class="citation" data-cites="hightower2025">(<a href="#ref-hightower2025" role="doc-biblioref">Hightower et al. 2025</a>)</span> の実装につなげることを目的として作成していました。</p>
+<p>具体的なCSVファイルの内容は以下になります。 なお、文字モードはUTF-8、区切り文字はカンマ (<code>,</code>) です。</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>文字コードはUTF-8であるため、日本語を含むファイルをExcelで開く場合は注意が必要です。 通常、ExcelはShift-JISをデフォルトの文字コードとして使用するため、文字化けが発生します。 その際は、Excelの「データ」タブから「テキストまたはCSVから」を選択し、インポートウィザードで文字コードをUTF-8に指定して開いてください。</p>
+</div>
+</div>
+<ul>
+<li><p>file_absolute_path: 元画像ファイルの絶対パス</p></li>
+<li><p>file_relative_path: 元画像ファイルの相対パス</p></li>
+<li><p>id: 元画像のファイル名（拡張子なし）</p></li>
+<li><p>leaf_id: ROIのID（01, 02, …）</p></li>
+<li><p>px_per_cm: ピクセルあたりのセンチメートル数。 scale設定がされていない場合は空欄になります。</p></li>
+<li><p>base_x: 基部ランドマークのX座標（回転後 <code>rotated_images</code> の画像に対応しています。）</p></li>
+<li><p>base_y: 基部ランドマークのY座標（回転後 <code>rotated_images</code> の画像に対応しています。）</p></li>
+<li><p>tip_x: 先端ランドマークのX座標（回転後 <code>rotated_images</code> の画像に対応しています。）</p></li>
+<li><p>tip_y: 先端ランドマークのY座標（回転後 <code>rotated_images</code> の画像に対応しています。）</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="recommended-order-for-users" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="recommended-order-for-users"><span class="header-section-number">4</span> Recommended Order for Users</h2>
+<ol type="1">
+<li>Run the tool and load your image.</li>
+<li>Follow steps 1–9 above for each ROI.</li>
+<li>Exported files can be used directly in R (e.g., with <a href="https://momx.github.io/Momocs/"><strong>Momocs</strong></a> package <span class="citation" data-cites="Bonhomme2014momocs">(<a href="#ref-Bonhomme2014momocs" role="doc-biblioref">Bonhomme et al. 2014</a>)</span>) in <a href="https://www.r-project.org/">R</a> or <a href="https://www.python.org/">Python</a> (e.g.&nbsp;<a href="https://pyefd.readthedocs.io/en/latest/">PyEFD</a>) for downstream analysis.</li>
+</ol>
+</section>
+<section id="references" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="references"><span class="header-section-number">5</span> References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Bonhomme2014momocs" class="csl-entry" role="listitem">
+Bonhomme, Vincent, Sandrine Picq, Cédric Gaucherel, and Julien Claude. 2014. <em>Momocs: Outline Analysis Using r</em>. <em>Journal of Statistical Software</em>. Vol. 56. <a href="https://www.jstatsoft.org/v56/i13/">https://www.jstatsoft.org/v56/i13/</a>.
+</div>
+<div id="ref-hightower2025" class="csl-entry" role="listitem">
+Hightower, Asia, Svea Hall, Ricardo Urquidi Camacho, Alexandra Papamichail, Evan Adamski, Claudia Colligan, Aidan Deneen, et al. 2025. <span>“Procrustean Pseudo-Landmark Methods in Python to Measure Massive Quantities of Leaf Shape Data.”</span> <em>bioRxiv</em>. <a href="https://doi.org/10.1101/2025.08.08.669192">https://doi.org/10.1101/2025.08.08.669192</a>.
+</div>
+<div id="ref-neto2006a" class="csl-entry" role="listitem">
+Neto, João Camargo, George E. Meyer, David D. Jones, and Ashok K. Samal. 2006. <span>“Plant Species Identification Using Elliptic Fourier Leaf Shape Analysis.”</span> <em>Computers and Electronics in Agriculture</em> 50 (2): 121–34. <a href="https://doi.org/10.1016/j.compag.2005.09.004">https://doi.org/10.1016/j.compag.2005.09.004</a>.
+</div>
+<div id="ref-otsu1979" class="csl-entry" role="listitem">
+Otsu, Nobuyuki. 1979. <span>“A Threshold Selection Method from Gray-Level Histograms.”</span> <em>IEEE Transactions on Systems, Man, and Cybernetics</em> 9 (1): 62–66. <a href="https://doi.org/10.1109/TSMC.1979.4310076">https://doi.org/10.1109/TSMC.1979.4310076</a>.
+</div>
+<div id="ref-ravi2024sam2segmentimages" class="csl-entry" role="listitem">
+Ravi, Nikhila, Valentin Gabeur, Yuan-Ting Hu, Ronghang Hu, Chaitanya Ryali, Tengyu Ma, Haitham Khedr, et al. 2024. <span>“SAM 2: Segment Anything in Images and Videos.”</span> <a href="https://arxiv.org/abs/2408.00714">https://arxiv.org/abs/2408.00714</a>.
+</div>
+<div id="ref-shi2021" class="csl-entry" role="listitem">
+Shi, Peijian, Kexin Yu, Karl J. Niklas, Julian Schrader, Yu Song, Renbin Zhu, Yang Li, Hailin Wei, and David A. Ratkowsky. 2021. <span>“A General Model for Describing the Ovate Leaf Shape.”</span> <em>Symmetry</em> 13 (8): 1524. <a href="https://doi.org/10.3390/sym13081524">https://doi.org/10.3390/sym13081524</a>.
+</div>
+<div id="ref-viscosi2009" class="csl-entry" role="listitem">
+Viscosi, V., P. Fortini, D. E. Slice, A. Loy, and C. Blasi. 2009. <span>“Geometric Morphometric Analyses of Leaf Variation in Four Oak Species of the Subgenus Quercus (Fagaceae).”</span> <em>Plant Biosystems - An International Journal Dealing with All Aspects of Plant Biology</em> 143 (3): 575–87. <a href="https://doi.org/10.1080/11263500902775277">https://doi.org/10.1080/11263500902775277</a>.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Leaf Shape Analysis Tool</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/maple60/morphometrics-tool/edit/main/website/usage.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/maple60/morphometrics-tool/blob/main/website/usage.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/maple60/morphometrics-tool/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
