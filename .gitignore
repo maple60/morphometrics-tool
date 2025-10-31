@@ -1,3 +1,6 @@
 .venv/
 .vscode/
 /src/leaf_shape_tool.egg-info
+/build
+/dist
+/output
