@@ -55,6 +55,15 @@ uv sync
 uv run python -m leaf_shape_tool.main
 ```
 
+または、開発中は
+
+```bash
+uv pip install -e .
+leaf-shape-tool
+``` 
+
+でインストールできます。
+
 ## Citation
 
 ## Acknowledgements
