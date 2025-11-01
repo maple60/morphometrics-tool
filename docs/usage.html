@@ -340,28 +340,28 @@ flowchart TD
 <h3 data-number="2.1" class="anchored" data-anchor-id="launch-the-application"><span class="header-section-number">2.1</span> Launch the Application</h3>
 <p>After installation, start the application.<br>
 Once launched, the napari viewer window will appear.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="assets/initial_window.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Initial window"><img src="assets/initial_window.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Initial window"></a></p>
-</figure>
+<div id="fig-initial-window" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Initial window">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-initial-window-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/initial_window.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Initial window"><img src="assets/initial_window.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Initial window"></a>
 </div>
-<figcaption>Initial window</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-initial-window-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Initial window
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="sec-load-image" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="sec-load-image"><span class="header-section-number">2.2</span> Load an Image</h3>
 <p>Open an image file from the menu bar ([File] &gt; [Open]) or drag &amp; drop it directly into the viewer. ショートカットキーは Ctrl+O (Windows/Linux) または Cmd+O (Mac) です。</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="assets/open_image.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="[File] > [Open]"><img src="assets/open_image.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="How to open a image"></a></p>
-</figure>
+<div id="fig-fig-open-image" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="How to open a image">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fig-open-image-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/open_image.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: [File] > [Open]"><img src="assets/open_image.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="How to open a image"></a>
 </div>
-<figcaption>[File] &gt; [Open]</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fig-open-image-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: [File] &gt; [Open]
+</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Supported Image Formats">
@@ -378,14 +378,14 @@ Supported Image Formats
 </div>
 </div>
 <p>画像を読み込むと、画像のファイル名をレイヤ名とした画像レイヤが追加されます。 また、その上に自動的に ROIs レイヤも追加されます。</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="assets/image_loaded.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Image loaded"><img src="assets/image_loaded.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Image loaded"></a></p>
-</figure>
+<div id="fig-image-loaded" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Image loaded">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-image-loaded-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/image_loaded.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Image loaded"><img src="assets/image_loaded.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Image loaded"></a>
 </div>
-<figcaption>Image loaded</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-image-loaded-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Image loaded
+</figcaption>
 </figure>
 </div>
 </section>
@@ -396,21 +396,21 @@ Supported Image Formats
 <h4 data-number="2.3.1" class="anchored" data-anchor-id="スケールバーで設定する場合"><span class="header-section-number">2.3.1</span> スケールバーで設定する場合</h4>
 <p>画像中にスケールバーが存在する場合は、以下の手順でスケールを設定できます。</p>
 <ol type="1">
-<li>[Add Layer] をクリックします。Scale Measurement という シェープレイヤーが追加されます</li>
+<li>[Add Layer] をクリックします。Scale Measurement という シェープレイヤー <img src="assets/icons\new_shapes.svg" class="img-fluid" width="24"> が追加されます</li>
 <li>[mode]を “px/cm” に設定します</li>
-<li>スケールバーを拡大し、[Add lines] ツールが選択されていることを確認します</li>
+<li>スケールバーを拡大し、[Add lines] <img src="assets/icons\rectangle.svg" class="img-fluid" width="24"> ツールが選択されていることを確認します</li>
 <li>画像中のスケールバーの既知の長さに沿ってクリック＆ドラッグで線を引きます</li>
 <li>[Real length] と [Unit] に、スケールバーの実際の長さと単位を入力します。デフォルトでは 1 cm に設定されています。</li>
 <li>[Set Scalse] ボタンをクリックします。これでスケールが設定されます。</li>
 </ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="assets/set_scale_px_cm_mode.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Set scale (scale bar mode)"><img src="assets/set_scale_px_cm_mode.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Set scale (px/cm mode)"></a></p>
-</figure>
+<div id="fig-set-scale-px-cm-mode" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Set scale (px/cm mode)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-set-scale-px-cm-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/set_scale_px_cm_mode.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Set scale (scale bar mode)"><img src="assets/set_scale_px_cm_mode.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Set scale (px/cm mode)"></a>
 </div>
-<figcaption>Set scale (scale bar mode)</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-set-scale-px-cm-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Set scale (scale bar mode)
+</figcaption>
 </figure>
 </div>
 </section>
@@ -420,14 +420,14 @@ Supported Image Formats
 <li>[mode]を “dpi” に設定します（デフォルトで設定されています）</li>
 <li>[DPI] に画像のdpi情報を入力します。デフォルトでは 300 dpi に設定されています</li>
 </ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="assets/set_scale_dpi_mode.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Set scale (dpi mode)"><img src="assets/set_scale_dpi_mode.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Set scale (dpi mode)"></a></p>
-</figure>
+<div id="fig-set-scale-dpi-mode" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Set scale (dpi mode)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-set-scale-dpi-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/set_scale_dpi_mode.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Set scale (dpi mode)"><img src="assets/set_scale_dpi_mode.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Set scale (dpi mode)"></a>
 </div>
-<figcaption>Set scale (dpi mode)</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-set-scale-dpi-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Set scale (dpi mode)
+</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -471,14 +471,14 @@ ROIとは
 ROIを指定することで、解析対象を限定し、不要な背景などの影響を除くことができます。</p>
 </div>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="assets/roi_extraction.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Draw ROI rectangle"><img src="assets/roi_extraction.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Draw ROI rectangle"></a></p>
-</figure>
+<div id="fig-draw-ROI-rectangle" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Draw ROI rectangle">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-draw-ROI-rectangle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/roi_extraction.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Draw ROI rectangle"><img src="assets/roi_extraction.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Draw ROI rectangle"></a>
 </div>
-<figcaption>Draw ROI rectangle</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-draw-ROI-rectangle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Draw ROI rectangle
+</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -495,7 +495,7 @@ ROIを指定することで、解析対象を限定し、不要な背景など�
 <li><p><strong>ズームイン・ズームアウト</strong>はマウスホイールで行えます。 <strong>パン</strong>をしたい場合は、[Move camera] ツール <img src="assets/icons\pan_arrows.svg" class="img-fluid" width="24">を使用して、画像をドラッグして移動できます。</p></li>
 <li><p>[Add rectangle] <img src="assets/icons\rectangle.svg" class="img-fluid" width="24"> ツールが選択されている状態でも、スペースキーを押しながらドラッグしてパン操作が可能ですが、挙動がやや不安定です。<br>
 画像の上にカーソルを置いた状態で、スペースキーを押したときに、カーソルが十字から通常のカーソルに変化する場合は、ドラッグによるパン操作が可能です。</p></li>
-<li><p>間違えた矩形を描画した場合は、[Delete selected shapes] ツール ![] で矩形を消去し、再度矩形を追加してください。</p></li>
+<li><p>間違えた矩形を描画した場合は、[Delete selected shapes] <img src="assets/icons/delete_shape.svg" class="img-fluid" width="24"> ツールで矩形を消去し、再度矩形を追加してください。</p></li>
 <li><p>[Next ROI index] に次のROI番号が表示されており、ROIを作成すると自動で増加します。途中の番号から開始したい場合は手動で変更することが可能です。</p></li>
 </ul>
 </div>
@@ -528,10 +528,14 @@ These are used to align the biological orientation of each leaf.</p>
 <li>[Rotate Image Based on Points] をクリックします</li>
 <li>基部が左(-x 方向)、先端が右(+x 方向)、基部と先端を結んだ直線がx軸とのなす角が0度になるように回転され、回転後の画像が “ROI_XX_rotated” (XX は 01から始まるROI番号)というレイヤー名で追加されます</li>
 </ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="assets/add_landmarks.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Added landmarks"><img src="assets/add_landmarks.webp" class="img-fluid figure-img" alt="Added landmarks"></a></p>
-<figcaption>Added landmarks</figcaption>
+<div id="fig-added-landmarks" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Added landmarks">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-added-landmarks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/add_landmarks.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Added landmarks"><img src="assets/add_landmarks.webp" class="img-fluid figure-img" alt="Added landmarks"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-added-landmarks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Added landmarks
+</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -599,7 +603,7 @@ These are used to align the biological orientation of each leaf.</p>
 <li><p>Otsu’s method <span class="citation" data-cites="otsu1979">(<a href="#ref-otsu1979" role="doc-biblioref">Otsu 1979</a>)</span>: 画素値のヒストグラムに基づいて、自動的に最適な閾値を求める統計的二値化手法。</p></li>
 <li><p>Segment Anything Model 2 (SAM2) <span class="citation" data-cites="ravi2024sam2segmentimages">(<a href="#ref-ravi2024sam2segmentimages" role="doc-biblioref">Ravi et al. 2024</a>)</span>: Meta社が開発した、深層学習モデルを用いた高精度な画像セグメンテーション手法。複雑な背景でも対象を自動で抽出できます。</p></li>
 </ul>
-<p>スキャン画像をなど、白い背景に対して葉が濃い色で写っている場合は、Otsu法で十分なことが多いです。<br>
+<p>スキャン画像など、白い背景に対して葉が濃い色で写っている場合は、Otsu法で十分なことが多いです。<br>
 一方、葉が薄く写っている場合や、背景が複雑な場合は、SAM2を使用すると良い結果が得られることがあります。</p>
 <p>経験的に、通常の葉のスキャン画像を用いる場合、Otsu法のほうが高速かつ細かい鋸歯を捉えやすい傾向があります。<br>
 最初には Otsu法を試し、うまくいかない場合にSAM2を試すことをお勧めします。</p>
@@ -612,6 +616,16 @@ These are used to align the biological orientation of each leaf.</p>
 <li>[method]の下に[threshold]のスライダーが表示され、閾値を手動で調整することが可能です。<br>
 スライダーを動かすと、二値化の閾値が変化し、マスクがリアルタイムで更新されます。</li>
 </ol>
+<div id="fig-binarized-by-otsu" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Added landmarks">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-binarized-by-otsu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/binarization.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Binarized by Otsu’s method"><img src="assets/binarization.webp" class="img-fluid figure-img" alt="Added landmarks"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-binarized-by-otsu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Binarized by Otsu’s method
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="sam2で二値化する場合" class="level4" data-number="2.6.2">
 <h4 data-number="2.6.2" class="anchored" data-anchor-id="sam2で二値化する場合"><span class="header-section-number">2.6.2</span> SAM2で二値化する場合</h4>
@@ -779,15 +793,15 @@ SAM2を使用したい場合は、Python版を利用してください。申し�
 <ol type="1">
 <li>“ROI_XX_rotated_<code>&lt;method&gt;</code>_labels” レイヤー (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) を選択します</li>
 <li>[Contour Extraction WIdget] の [Extract Contour] をクリックします</li>
-<li>輪郭がマスクの外周に沿って抽出されて水色で表示され、“ROI_XX_rotated_<code>&lt;method&gt;</code>labels_contour” (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) というラベルレイヤーが追加されます (<a href="#fig-contour" class="quarto-xref">Figure&nbsp;1</a>)</li>
+<li>輪郭がマスクの外周に沿って抽出されて水色で表示され、“ROI_XX_rotated_<code>&lt;method&gt;</code>labels_contour” (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) というラベルレイヤーが追加されます (<a href="#fig-contour" class="quarto-xref">Figure&nbsp;9</a>)</li>
 </ol>
-<div id="fig-contour" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Extracted contour" data-fig-align="center">
+<div id="fig-contour" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Extracted contour">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-contour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="assets/contoru_extraction.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;1: Extracted contour"><img src="assets/contoru_extraction.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Extracted contour"></a>
+<a href="assets/contoru_extraction.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: Extracted contour"><img src="assets/contoru_extraction.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Extracted contour"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Extracted contour
+Figure&nbsp;9: Extracted contour
 </figcaption>
 </figure>
 </div>
