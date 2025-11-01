@@ -5,14 +5,18 @@ A napari widget for image binarization using Otsu thresholding or SAM2 segmentat
 This module is part of the Leaf Shape Analysis Tool.
 """
 
+import torch
+
 # --- Fix PyTorch DLL loading in PyInstaller ---
 import os
 import sys
+
 
 if getattr(sys, "frozen", False):
     torch_lib_path = os.path.join(os.path.dirname(sys.executable), "torch", "lib")
     if os.path.isdir(torch_lib_path):
         os.add_dll_directory(torch_lib_path)
+
 
 import napari
 from magicgui import magicgui
@@ -260,7 +264,7 @@ def make_binarize_image_widget(viewer: "napari.Viewer"):
             if not os.path.exists("sam2"):
                 print("Please place the 'sam2' folder in the root directory.")
             else:
-                import torch
+                #import torch
 
                 old_dir = os.getcwd()  # save current directory
                 os.chdir(os.path.join(old_dir, "sam2"))  # change to sam2 directory
@@ -282,7 +286,7 @@ def make_binarize_image_widget(viewer: "napari.Viewer"):
 
                 checkpoint = "checkpoints/sam2.1_hiera_large.pt"
                 model_cfg = "configs/sam2.1/sam2.1_hiera_l.yaml"
-                sam2_model = build_sam2(model_cfg, checkpoint)
+                sam2_model = build_sam2(model_cfg, checkpoint, device="cpu")
                 os.chdir(old_dir)  # restore original directory
 
                 mask_generator = SAM2AutomaticMaskGenerator(
