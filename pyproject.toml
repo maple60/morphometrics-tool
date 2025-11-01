@@ -22,10 +22,7 @@ dependencies = [
     "opencv-python",
     "scikit-image",
     "scipy",
-    "torch",
-    "torchvision",
-    "nuitka>=2.8.4",
-    "pyinstaller==6.16.0"
+    "pyinstaller==6.16.0",
 ]
 
 [project.scripts]
