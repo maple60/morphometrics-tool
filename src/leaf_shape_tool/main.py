@@ -12,6 +12,7 @@ Author: Maple
 License: BSD-3-Clause
 """
 
+"""
 # Check for SAM2 availability
 import sys, os
 base = os.path.dirname(os.path.abspath(sys.executable if getattr(sys, 'frozen', False) else __file__))
@@ -30,6 +31,9 @@ if getattr(sys, 'frozen', False):
     exe_dir = os.path.dirname(sys.executable)
     if exe_dir not in sys.path:
         sys.path.append(exe_dir)
+"""
+# For SAM2
+import torch  # noqa: F401
 
 import napari
 import imageio.v3 as iio
@@ -60,6 +64,7 @@ def image_reader(path):
 
 
 plugin_manager.register(image_reader, name="manual_imageio_reader")
+
 
 import importlib
 from napari.plugins import plugin_manager
