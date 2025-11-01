@@ -4,3 +4,7 @@
 /build
 /dist
 /output
+/sam2
+/src/leaf_shape_tool/utils/__pycache__
+/src/leaf_shape_tool/widgets/__pycache__
+/src/leaf_shape_tool/__pycache__
