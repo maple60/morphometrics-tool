@@ -1,4 +1,8 @@
 ---
+format:
+  html:
+    mermaid:
+      theme: forest
 title: "Usage"
 lightbox: true
 bibliography: references.bib
@@ -9,7 +13,7 @@ This section describes how to use the Leaf Shape Analysis Tool through the graph
 
 ## Workflow Overview
 
-The overall workflow is summarized below.\
+The overall workflow is summarized below.
 Each step can be performed through the dedicated GUI widgets.
 
 ::: {style="text-align: center;"}
@@ -40,22 +44,22 @@ flowchart TD
 ```
 :::
 
-From next section, each step will be explained in detail.
+From next section (@sec-step-by-step), each step will be explained in detail.
 
-## Step-by-Step Guide
+## Step-by-Step Guide {#sec-step-by-step}
 
 ### Launch the Application
 
 After installation, start the application.\
 Once launched, the napari viewer window will appear.
 
-![Initial window](assets/initial_window.webp){fig-alt="Initial window" fig-align="center"}
+![Initial window](assets/initial_window.webp){fig-alt="Initial window" fig-align="center" #fig-initial-window}
 
 ### Load an Image {#sec-load-image}
 
 Open an image file from the menu bar (\[File\] \> \[Open\]) or drag & drop it directly into the viewer. ショートカットキーは Ctrl+O (Windows/Linux) または Cmd+O (Mac) です。
 
-![\[File\] \> \[Open\]](assets/open_image.webp){fig-alt="How to open a image" fig-align="center"}
+![\[File\] \> \[Open\]](assets/open_image.webp){fig-alt="How to open a image" fig-align="center" #fig-fig-open-image}
 
 ::: {.callout-note title="Supported Image Formats"}
 Supported formats include `.jpg`, `.png`, `.tif`, and `.bmp`.
@@ -63,7 +67,7 @@ Supported formats include `.jpg`, `.png`, `.tif`, and `.bmp`.
 
 画像を読み込むと、画像のファイル名をレイヤ名とした画像レイヤが追加されます。 また、その上に自動的に ROIs レイヤも追加されます。
 
-![Image loaded](assets/image_loaded.webp){fig-alt="Image loaded" fig-align="center"}
+![Image loaded](assets/image_loaded.webp){fig-alt="Image loaded" fig-align="center" #fig-image-loaded}
 
 ### (Optional) Set the Scale
 
@@ -73,21 +77,21 @@ If your image contains a scale bar, you can define the pixel-to-cm ratio using t
 
 画像中にスケールバーが存在する場合は、以下の手順でスケールを設定できます。
 
-1.  \[Add Layer\] をクリックします。Scale Measurement という シェープレイヤーが追加されます
+1.  \[Add Layer\] をクリックします。Scale Measurement という シェープレイヤー ![](assets/icons\new_shapes.svg){width="24"} が追加されます
 2.  \[mode\]を "px/cm" に設定します
-3.  スケールバーを拡大し、\[Add lines\] ツールが選択されていることを確認します
+3.  スケールバーを拡大し、\[Add lines\] ![](assets/icons\rectangle.svg){width="24"} ツールが選択されていることを確認します
 4.  画像中のスケールバーの既知の長さに沿ってクリック＆ドラッグで線を引きます
 5.  \[Real length\] と \[Unit\] に、スケールバーの実際の長さと単位を入力します。デフォルトでは 1 cm に設定されています。
 6.  \[Set Scalse\] ボタンをクリックします。これでスケールが設定されます。
 
-![Set scale (scale bar mode)](assets/set_scale_px_cm_mode.webp){fig-alt="Set scale (px/cm mode)" fig-align="center"}
+![Set scale (scale bar mode)](assets/set_scale_px_cm_mode.webp){fig-alt="Set scale (px/cm mode)" fig-align="center" #fig-set-scale-px-cm-mode}
 
 #### dpi情報で設定する場合
 
 1.  \[mode\]を "dpi" に設定します（デフォルトで設定されています）
 2.  \[DPI\] に画像のdpi情報を入力します。デフォルトでは 300 dpi に設定されています
 
-![Set scale (dpi mode)](assets/set_scale_dpi_mode.webp){fig-alt="Set scale (dpi mode)" fig-align="center"}
+![Set scale (dpi mode)](assets/set_scale_dpi_mode.webp){fig-alt="Set scale (dpi mode)" fig-align="center" #fig-set-scale-dpi-mode}
 
 ::: callout-tip
 ## スキャン画像の解像度について
@@ -114,7 +118,7 @@ ROI（Region of Interest）は、画像全体の中で「関心のある領域�
 ROIを指定することで、解析対象を限定し、不要な背景などの影響を除くことができます。
 :::
 
-![Draw ROI rectangle](assets/roi_extraction.webp){fig-alt="Draw ROI rectangle" fig-align="center"}
+![Draw ROI rectangle](assets/roi_extraction.webp){fig-alt="Draw ROI rectangle" fig-align="center" #fig-draw-ROI-rectangle}
 
 ::: callout-tip
 ## 操作について
@@ -124,7 +128,7 @@ ROIを指定することで、解析対象を限定し、不要な背景など�
 -   \[Add rectangle\] ![](assets/icons\rectangle.svg){width="24"} ツールが選択されている状態でも、スペースキーを押しながらドラッグしてパン操作が可能ですが、挙動がやや不安定です。\
     画像の上にカーソルを置いた状態で、スペースキーを押したときに、カーソルが十字から通常のカーソルに変化する場合は、ドラッグによるパン操作が可能です。
 
--   間違えた矩形を描画した場合は、\[Delete selected shapes\] ツールで矩形を消去し、再度矩形を追加してください。
+-   間違えた矩形を描画した場合は、\[Delete selected shapes\] ![](assets/icons/delete_shape.svg){width="24"} ツールで矩形を消去し、再度矩形を追加してください。
 
 -   \[Next ROI index\] に次のROI番号が表示されており、ROIを作成すると自動で増加します。途中の番号から開始したい場合は手動で変更することが可能です。
 :::
@@ -148,7 +152,7 @@ These are used to align the biological orientation of each leaf.
 4.  \[Rotate Image Based on Points\] をクリックします
 5.  基部が左(-x 方向)、先端が右(+x 方向)、基部と先端を結んだ直線がx軸とのなす角が0度になるように回転され、回転後の画像が "ROI_XX_rotated" (XX は 01から始まるROI番号)というレイヤー名で追加されます
 
-![Added landmarks](assets/add_landmarks.webp){fig-alt="Added landmarks"}
+![Added landmarks](assets/add_landmarks.webp){fig-alt="Added landmarks" #fig-added-landmarks}
 
 ::: callout-tip
 ## 操作について
@@ -197,7 +201,7 @@ Generate a binary mask using one of the following methods:
 
 -   Segment Anything Model 2 (SAM2) [@ravi2024sam2segmentimages]: Meta社が開発した、深層学習モデルを用いた高精度な画像セグメンテーション手法。複雑な背景でも対象を自動で抽出できます。
 
-スキャン画像をなど、白い背景に対して葉が濃い色で写っている場合は、Otsu法で十分なことが多いです。\
+スキャン画像など、白い背景に対して葉が濃い色で写っている場合は、Otsu法で十分なことが多いです。\
 一方、葉が薄く写っている場合や、背景が複雑な場合は、SAM2を使用すると良い結果が得られることがあります。
 
 経験的に、通常の葉のスキャン画像を用いる場合、Otsu法のほうが高速かつ細かい鋸歯を捉えやすい傾向があります。\
@@ -210,6 +214,8 @@ Generate a binary mask using one of the following methods:
 3. "ROI_XX_rotated_Otsu_labels" (XX は 01から始まるROI番号) というラベルレイヤーが追加され、二値化されたマスクが表示されます。対象の領域がオレンジ色で重ねて表示されます
 4. \[method\]の下に\[threshold\]のスライダーが表示され、閾値を手動で調整することが可能です。\
    スライダーを動かすと、二値化の閾値が変化し、マスクがリアルタイムで更新されます。
+
+![Binarized by Otsu's method](assets/binarization.webp){fig-alt="Added landmarks" #fig-binarized-by-otsu}
 
 #### SAM2で二値化する場合
 
