@@ -89,6 +89,7 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<meta name="mermaid-theme" content="forest">
 <script src="site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
@@ -248,7 +249,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#workflow-overview" id="toc-workflow-overview" class="nav-link active" data-scroll-target="#workflow-overview"><span class="header-section-number">1</span> Workflow Overview</a></li>
-  <li><a href="#step-by-step-guide" id="toc-step-by-step-guide" class="nav-link" data-scroll-target="#step-by-step-guide"><span class="header-section-number">2</span> Step-by-Step Guide</a>
+  <li><a href="#sec-step-by-step" id="toc-sec-step-by-step" class="nav-link" data-scroll-target="#sec-step-by-step"><span class="header-section-number">2</span> Step-by-Step Guide</a>
   <ul class="collapse">
   <li><a href="#launch-the-application" id="toc-launch-the-application" class="nav-link" data-scroll-target="#launch-the-application"><span class="header-section-number">2.1</span> Launch the Application</a></li>
   <li><a href="#sec-load-image" id="toc-sec-load-image" class="nav-link" data-scroll-target="#sec-load-image"><span class="header-section-number">2.2</span> Load an Image</a></li>
@@ -294,8 +295,7 @@ window.Quarto = {
 <p>This section describes how to use the Leaf Shape Analysis Tool through the graphical user interface (GUI). All operations — from ROI cropping to EFD export — can be completed within a single interactive window.</p>
 <section id="workflow-overview" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="workflow-overview"><span class="header-section-number">1</span> Workflow Overview</h2>
-<p>The overall workflow is summarized below.<br>
-Each step can be performed through the dedicated GUI widgets.</p>
+<p>The overall workflow is summarized below. Each step can be performed through the dedicated GUI widgets.</p>
 <div style="text-align: center;">
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -332,10 +332,10 @@ flowchart TD
 </div>
 </div>
 </div>
-<p>From next section, each step will be explained in detail.</p>
+<p>From next section (<a href="#sec-step-by-step" class="quarto-xref">Section&nbsp;2</a>), each step will be explained in detail.</p>
 </section>
-<section id="step-by-step-guide" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="step-by-step-guide"><span class="header-section-number">2</span> Step-by-Step Guide</h2>
+<section id="sec-step-by-step" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-step-by-step"><span class="header-section-number">2</span> Step-by-Step Guide</h2>
 <section id="launch-the-application" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="launch-the-application"><span class="header-section-number">2.1</span> Launch the Application</h3>
 <p>After installation, start the application.<br>
@@ -495,7 +495,7 @@ ROIを指定することで、解析対象を限定し、不要な背景など�
 <li><p><strong>ズームイン・ズームアウト</strong>はマウスホイールで行えます。 <strong>パン</strong>をしたい場合は、[Move camera] ツール <img src="assets/icons\pan_arrows.svg" class="img-fluid" width="24">を使用して、画像をドラッグして移動できます。</p></li>
 <li><p>[Add rectangle] <img src="assets/icons\rectangle.svg" class="img-fluid" width="24"> ツールが選択されている状態でも、スペースキーを押しながらドラッグしてパン操作が可能ですが、挙動がやや不安定です。<br>
 画像の上にカーソルを置いた状態で、スペースキーを押したときに、カーソルが十字から通常のカーソルに変化する場合は、ドラッグによるパン操作が可能です。</p></li>
-<li><p>間違えた矩形を描画した場合は、[Delete selected shapes] ツールで矩形を消去し、再度矩形を追加してください。</p></li>
+<li><p>間違えた矩形を描画した場合は、[Delete selected shapes] ツール ![] で矩形を消去し、再度矩形を追加してください。</p></li>
 <li><p>[Next ROI index] に次のROI番号が表示されており、ROIを作成すると自動で増加します。途中の番号から開始したい場合は手動で変更することが可能です。</p></li>
 </ul>
 </div>
@@ -781,7 +781,7 @@ SAM2を使用したい場合は、Python版を利用してください。申し�
 <li>[Contour Extraction WIdget] の [Extract Contour] をクリックします</li>
 <li>輪郭がマスクの外周に沿って抽出されて水色で表示され、“ROI_XX_rotated_<code>&lt;method&gt;</code>labels_contour” (XX は 01から始まるROI番号、<code>&lt;method&gt;</code> は Otsu または SAM2) というラベルレイヤーが追加されます (<a href="#fig-contour" class="quarto-xref">Figure&nbsp;1</a>)</li>
 </ol>
-<div id="fig-contour" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Extracted contour">
+<div id="fig-contour" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Extracted contour" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-contour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="assets/contoru_extraction.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;1: Extracted contour"><img src="assets/contoru_extraction.webp" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Extracted contour"></a>
